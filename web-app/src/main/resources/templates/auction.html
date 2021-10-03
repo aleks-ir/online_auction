@@ -76,8 +76,8 @@
                                                 &#60; <span class="d-none d-sm-inline ">Sort</span>
                                             </a>
                                             <ul class="dropdown-menu">
-                                                <li class="table-dark"><button class="dropdown-item"  type="button">Data</button></li>
-                                                <li class="table-dark"><button class="dropdown-item" type="button">Owner</button></li>
+                                                <li><a class="dropdown-item" href="auction/sort/data" type="submit">Data</a></li>
+                                                <li><a class="dropdown-item" href="auction/sort/owner" type="submit">Owner</a></li>
                                             </ul>
 
 
@@ -268,12 +268,12 @@
         $("#updatePriseUrl").click(function (event) {
             let target = $(event.relatedTarget)
             let priceField = document.getElementById("priseInputField")
-            document.activeElement.href = '/product/' + target.data('id') + '/prise/' + priceField.value
+            document.activeElement.href = 'auction/product/' + target.data('id') + '/update/' + priceField.value
         })
         $('#deleteDialog').on('show.bs.modal', function (event) {
             var target = $(event.relatedTarget)
             $(this).find('.modal-body').text('Please confirm delete lot: "' + target.data('productName') + '"')
-            document.getElementById('deleteUrl').href = '/product/' + target.data('id') + '/delete';
+            document.getElementById('deleteUrl').href = 'auction/product/' + target.data('id') + '/delete';
         })
     </script>
 

@@ -8,4 +8,5 @@ public class ParticipantsController {
     public final String participants(Model model) {
         return "participants";
     }
+
 }
