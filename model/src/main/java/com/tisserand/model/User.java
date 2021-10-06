@@ -12,6 +12,14 @@ public class User {
 
     private Float userMoney;
 
+    public User(String userName, String userEmail, Float userMoney) {
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.userMoney = userMoney;
+    }
+
+    public User() {
+    }
 
     public Integer getUserId() {
         return userId;

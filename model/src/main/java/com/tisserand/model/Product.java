@@ -17,6 +17,18 @@ public class Product {
 
     private Integer costumerId;
 
+
+    public Product(String productName, Float productPrice, String productDate, Integer salesmanId) {
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.productDate = productDate;
+        this.salesmanId = salesmanId;
+    }
+
+    public Product(){
+
+    }
+
     public Integer getProductId() {
         return productId;
     }
