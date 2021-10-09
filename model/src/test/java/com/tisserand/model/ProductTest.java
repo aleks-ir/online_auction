@@ -7,7 +7,7 @@ public class ProductTest {
 
     @Test
     public void getProductConstructor() {
-        Product product = new Product("test product", 20.0F, "2000-02-21", 2);
+        Product product = new Product("test product", 21.0F, "2000-02-21", 2);
         Assertions.assertEquals("test product", product.getProductName());
         Assertions.assertEquals(21.0F, product.getProductPrice());
         Assertions.assertEquals("2000-02-21", product.getProductDate());
