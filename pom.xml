@@ -18,6 +18,8 @@
         <module>web-app</module>
         <module>model</module>
         <module>test-db</module>
+        <module>dao</module>
+        <module>dao-api</module>
     </modules>
 
     <distributionManagement>
