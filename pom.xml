@@ -17,6 +17,7 @@
     <modules>
         <module>web-app</module>
         <module>model</module>
+        <module>test-db</module>
     </modules>
 
     <distributionManagement>
