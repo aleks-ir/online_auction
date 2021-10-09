@@ -13,7 +13,7 @@ public interface ProductDao {
 
     Integer create(Product product);
 
-    Integer update(Product product);
+    Integer updatePrice(Product product);
 
     Integer delete(Integer productId);
 

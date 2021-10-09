@@ -10,11 +10,7 @@ public interface UserDao {
 
     Optional<User> findById(Integer userId);
 
-    Integer create(User user);
-
     Integer update(User user);
-
-    Integer delete(User userId);
 
     Integer count();
 }
