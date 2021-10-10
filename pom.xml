@@ -18,6 +18,9 @@
         <module>web-app</module>
         <module>model</module>
         <module>test-db</module>
+        <module>dao</module>
+        <module>dao-api</module>
+        <module>rest-app</module>
     </modules>
 
     <distributionManagement>
@@ -60,6 +63,30 @@
                 <scope>import</scope>
             </dependency>
 
+
+            <dependency>
+                <groupId>com.tisserand</groupId>
+                <artifactId>model</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.tisserand</groupId>
+                <artifactId>dao-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.tisserand</groupId>
+                <artifactId>dao</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.tisserand</groupId>
+                <artifactId>test-db</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
 
             <dependency>
