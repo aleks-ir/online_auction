@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface UserDtoDao {
 
-    List<UserDto> findValueOfAllProducts();
+    List<UserDto> findAllUsersWithValueOfAllProducts();
 }

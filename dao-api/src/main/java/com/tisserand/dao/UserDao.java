@@ -12,5 +12,9 @@ public interface UserDao {
 
     Integer update(User user);
 
+    Integer takeMoney(Float value, Integer userId);
+
+    Integer putMoney(Float value, Integer userId);
+
     Integer count();
 }

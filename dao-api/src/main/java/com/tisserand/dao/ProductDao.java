@@ -13,9 +13,11 @@ public interface ProductDao {
 
     Integer create(Product product);
 
-    Integer updatePrice(Product product);
-
     Integer delete(Integer productId);
 
     Integer count();
+
+    List<Product> findAllIdByDate(String date);
+
+    Integer updatePriceAndCustomer(Product product);
 }
