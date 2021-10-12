@@ -2,8 +2,6 @@ package com.tisserand.dao.jdbc;
 
 import com.tisserand.dao.UserDao;
 import com.tisserand.model.User;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -11,14 +9,11 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Repository
@@ -32,6 +27,12 @@ public class UserDaoJdbc implements UserDao {
 
     @Value("${user.findById}")
     private String findByIdSql;
+
+    @Value("${user.takeMoney}")
+    private String takeMoneySql;
+
+    @Value("${user.putMoney}")
+    private String putMoneySql;
 
     @Value("${user.count}")
     private String countSql;
@@ -65,6 +66,22 @@ public class UserDaoJdbc implements UserDao {
                         .addValue("USER_MONEY", user.getUserMoney())
                         .addValue("USER_ID", user.getUserId());
         return namedParameterJdbcTemplate.update(updateSql, sqlParameterSource);
+    }
+
+    @Override
+    public Integer takeMoney(Float value, Integer userId) {
+        SqlParameterSource sqlParameterSource =
+                new MapSqlParameterSource("USER_ID", userId)
+                        .addValue("VALUE", value);
+        return namedParameterJdbcTemplate.update(takeMoneySql, sqlParameterSource);
+    }
+
+    @Override
+    public Integer putMoney(Float value, Integer userId) {
+        SqlParameterSource sqlParameterSource =
+                new MapSqlParameterSource("USER_ID", userId)
+                        .addValue("VALUE", value);
+        return namedParameterJdbcTemplate.update(putMoneySql, sqlParameterSource);
     }
 
 

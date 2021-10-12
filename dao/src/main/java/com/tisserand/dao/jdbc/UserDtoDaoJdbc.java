@@ -13,8 +13,8 @@ public class UserDtoDaoJdbc implements UserDtoDao {
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Value("${userDto.findValueOfAllProducts}")
-    private String findValueOfAllProducts;
+    @Value("${userDto.selectAllUsersWithValueOfAllProducts}")
+    private String findAllUsersWithValueOfAllProductsSql;
 
     public UserDtoDaoJdbc(DataSource dataSource   ) {
         this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
@@ -22,11 +22,11 @@ public class UserDtoDaoJdbc implements UserDtoDao {
 
 
     @Override
-    public List<UserDto> findValueOfAllProducts() {
-
-        List<UserDto> users = namedParameterJdbcTemplate.query(findValueOfAllProducts,
+    public List<UserDto> findAllUsersWithValueOfAllProducts() {
+        List<UserDto> users = namedParameterJdbcTemplate.query(findAllUsersWithValueOfAllProductsSql,
                 BeanPropertyRowMapper.newInstance(UserDto.class));
         return users;
     }
+
 
 }

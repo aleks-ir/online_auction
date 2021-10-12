@@ -23,24 +23,33 @@ import java.util.Optional;
 public class ProductDaoJdbc implements ProductDao {
 
     @Value("${product.selectAll}")
-    private String selectSql;
+    private String findAllSql;
+
+    @Value("${product.selectAllIdByDate}")
+    private String findAllIdByDateSql;
+
+    @Value("${product.selectAllWithSortByName}")
+    private String findAllWithSortByNameSql;
+
+    @Value("${product.selectAllWithSortByDate}")
+    private String findAllWithSortByDateSql;
 
     @Value("${product.create}")
     private String createSql;
 
-    @Value("${department.updatePriceAndCustomer}")
+    @Value("${product.updatePriceAndCustomer}")
     private String updatePriceAndCustomerSql;
 
-    @Value("${department.findById}")
+    @Value("${product.findById}")
     private String findByIdSql;
 
-    @Value("${department.check}")
+    @Value("${product.check}")
     private String checkSql;
 
-    @Value("${department.count}")
+    @Value("${product.count}")
     private String countSql;
 
-    @Value("${department.delete}")
+    @Value("${product.delete}")
     private String deleteSql;
 
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -53,7 +62,13 @@ public class ProductDaoJdbc implements ProductDao {
 
     @Override
     public List<Product> findAll() {
-        return namedParameterJdbcTemplate.query(selectSql, rowMapper);
+        return namedParameterJdbcTemplate.query(findAllSql, rowMapper);
+    }
+
+    @Override
+    public List<Product> findAllIdByDate(String date) {
+        SqlParameterSource sqlParameterSource = new MapSqlParameterSource("PRODUCT_DATE", date);
+        return namedParameterJdbcTemplate.query(findAllIdByDateSql, sqlParameterSource, rowMapper);
     }
 
     @Override
@@ -69,14 +84,15 @@ public class ProductDaoJdbc implements ProductDao {
             throw new IllegalArgumentException("Product with the same name already exists in DB.");
         }
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        SqlParameterSource sqlParameterSource = new MapSqlParameterSource("PRODUCT_NAME", product.getProductName());
+        SqlParameterSource sqlParameterSource = new MapSqlParameterSource("PRODUCT_NAME", product.getProductName())
+                .addValue("PRODUCT_PRICE", product.getProductPrice())
+                .addValue("PRODUCT_DATE", product.getProductDate())
+                .addValue("SALESMAN_ID", product.getSalesmanId());
         namedParameterJdbcTemplate.update(createSql, sqlParameterSource, keyHolder);
         Integer productId = Objects.requireNonNull(keyHolder.getKey()).intValue();
         product.setProductId(productId);
         return productId;
     }
-
-
 
     private boolean isProductNameUnique(Product product) {
         return namedParameterJdbcTemplate.queryForObject(checkSql,
@@ -84,11 +100,11 @@ public class ProductDaoJdbc implements ProductDao {
     }
 
     @Override
-    public Integer updatePrice(Product product) {
+    public Integer updatePriceAndCustomer(Product product) {
         SqlParameterSource sqlParameterSource =
                 new MapSqlParameterSource("PRODUCT_PRICE", product.getProductPrice())
-                .addValue("CUSTOMER_ID", product.getCostumerId())
-                .addValue("PRODUCT_ID", product.getProductId());
+                        .addValue("CUSTOMER_ID", product.getCustomerId())
+                        .addValue("PRODUCT_ID", product.getProductId());
         return namedParameterJdbcTemplate.update(updatePriceAndCustomerSql, sqlParameterSource);
     }
 
@@ -102,4 +118,6 @@ public class ProductDaoJdbc implements ProductDao {
     public Integer count() {
         return namedParameterJdbcTemplate.queryForObject(countSql, new HashMap<>(), Integer.class);
     }
+
+
 }
