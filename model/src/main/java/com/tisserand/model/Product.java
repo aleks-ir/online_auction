@@ -15,7 +15,7 @@ public class Product {
 
     private Integer salesmanId;
 
-    private Integer costumerId;
+    private Integer customerId;
 
 
     public Product(String productName, Float productPrice, String productDate, Integer salesmanId) {
@@ -69,12 +69,12 @@ public class Product {
         this.salesmanId = salesmanId;
     }
 
-    public Integer getCostumerId() {
-        return costumerId;
+    public Integer getCustomerId() {
+        return customerId;
     }
 
-    public void setCostumerId(Integer costumerId) {
-        this.costumerId = costumerId;
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
     }
 
     @Override
@@ -85,7 +85,7 @@ public class Product {
                 ", productPrice=" + productPrice +
                 ", productDate='" + productDate + '\'' +
                 ", salesmanId=" + salesmanId +
-                ", costumerId=" + costumerId +
+                ", costumerId=" + customerId +
                 '}';
     }
 
@@ -94,12 +94,12 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return Objects.equals(productId, product.productId) && Objects.equals(productName, product.productName) && Objects.equals(productPrice, product.productPrice) && Objects.equals(productDate, product.productDate) && Objects.equals(salesmanId, product.salesmanId) && Objects.equals(costumerId, product.costumerId);
+        return Objects.equals(productId, product.productId) && Objects.equals(productName, product.productName) && Objects.equals(productPrice, product.productPrice) && Objects.equals(productDate, product.productDate) && Objects.equals(salesmanId, product.salesmanId) && Objects.equals(customerId, product.customerId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(productId, productName, productPrice, productDate, salesmanId, costumerId);
+        return Objects.hash(productId, productName, productPrice, productDate, salesmanId, customerId);
     }
 
 
