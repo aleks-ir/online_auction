@@ -45,7 +45,14 @@
         <nav id="main-header" class="py-1 mb-3 navbar navbar-light bg-light text-dark">
             <div class="container-fluid">
                 <span class="navbar-brand text-uppercase">Auction</span>
-                <span class="navbar-brand text-uppercase" id="currentDate"></span>
+                <span><span class="d-none d-sm-inline" id="currentDate"></span>
+                    <div data-bs-toggle="modal" data-bs-target="#updateDateDialog" class="btn btn-sm"
+                        title="Update Date">
+                        &#8634;
+                    </div>
+                </span>
+
+
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a href="add_product.html" th:href="@{/product}" class="btn btn-light" title="Add product">
@@ -71,16 +78,31 @@
                                     <th>Closing date</th>
                                     <th class="text-end pe-3">
                                         <div class="btn-group dropend">
-                                            <a href="#" data-bs-toggle="dropdown"
-                                                style='text-decoration: none' class="btn-sm btn-dark ">
-                                                &#60; <span class="d-none d-sm-inline ">Sort</span>
+                                            <a href="#" data-bs-toggle="dropdown" style='text-decoration: none'
+                                                class="btn-sm btn-dark ">
+                                                &#60; <span class="d-none d-sm-inline ">Sort by date</span>
                                             </a>
-                                            <ul class="dropdown-menu">
-                                                <li class="table-dark"><button class="dropdown-item"  type="button">Data</button></li>
-                                                <li class="table-dark"><button class="dropdown-item" type="button">Owner</button></li>
-                                            </ul>
+                                            <div class="dropdown-menu ">
+                                                <div class="d-grid gap-2 col-7 mx-auto">
+                                                    <label class="form-label" for="field_userMoney">Enter date</label>
+                                                </div>
 
+                                                <div class="px-2 pb-1">
+                                                    <input type="text" class="form-control has-invalid"
+                                                        id="dateInputField1" placeholder="With"
+                                                        aria-describedby="inputGroupPrepend">
+                                                </div>
+                                                <div class="px-2 pb-2">
+                                                    <input type="text" class="form-control has-invalid"
+                                                        id="dateInputField2" placeholder="By"
+                                                        aria-describedby="inputGroupPrepend">
+                                                </div>
 
+                                                <div class="d-grid gap-2 col-6 mx-auto ">
+                                                    <a href="#" class="btn btn-secondary btn-sm"
+                                                        id="checkSortByDateDate">Sort</a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </th>
                                 </tr>
@@ -114,19 +136,19 @@
 
                                 <tr th:remove="all">
                                     <td class="align-middle">Stove</td>
-                                    <td class="align-middle">Deadpool</td>
+                                    <td class="align-middle">Master</td>
                                     <td class="align-middle">200</td>
                                     <td class="align-middle">07.02.2022</td>
                                     <td class="text-end">
                                         <span data-bs-toggle="modal" data-bs-target="#markUpDialog" id="btnPrice"
-                                            class="d-none" data-name="Deadpool" data-owner="Deadpool">
+                                            class="d-none" data-name="Master" data-owner="Master">
                                             <a href="#" class="btn btn-block">
                                                 <span class="d-none d-sm-inline">Mark up</span>
                                                 &#128400;
                                             </a>
                                         </span>
                                         <span data-bs-toggle="modal" data-bs-target="#deleteDialog" id="btnDelete"
-                                            class="d-none" data-name="Deadpool" data-owner="Deadpool">
+                                            class="d-none" data-name="Master" data-owner="Master">
                                             <a href="#" class="btn btn-block">
                                                 <span class="d-none d-sm-inline">Remove</span>
                                                 &#128465;
@@ -141,14 +163,14 @@
                                     <td class="align-middle">21.02.2022</td>
                                     <td class="text-end">
                                         <span data-bs-toggle="modal" data-bs-target="#markUpDialog" id="btnPrice"
-                                            class="d-none" data-name="Deadpool" data-owner="Abraham">
+                                            class="d-none" data-name="Master" data-owner="Abraham">
                                             <a href="#" class="btn btn-block">
                                                 <span class="d-none d-sm-inline">Mark up</span>
                                                 &#128400;
                                             </a>
                                         </span>
                                         <span data-bs-toggle="modal" data-bs-target="#deleteDialog" id="btnDelete"
-                                            class="d-none" data-name="Deadpool" data-owner="Abraham">
+                                            class="d-none" data-name="Master" data-owner="Abraham">
                                             <a href="#" class="btn btn-block">
                                                 <span class="d-none d-sm-inline">Remove</span>
                                                 &#128400;
@@ -163,14 +185,14 @@
                                     <td class="align-middle">25.02.2022</td>
                                     <td class="text-end">
                                         <span data-bs-toggle="modal" data-bs-target="#markUpDialog" id="btnPrice"
-                                            class="d-none" data-name="Deadpool" data-owner="Tor">
+                                            class="d-none" data-name="Master" data-owner="Tor">
                                             <a href="#" class="btn btn-block">
                                                 <span class="d-none d-sm-inline">Mark up</span>
                                                 &#128400;
                                             </a>
                                         </span>
                                         <span data-bs-toggle="modal" data-bs-target="#deleteDialog" id="btnDelete"
-                                            class="d-none" data-name="Deadpool" data-owner="Tor">
+                                            class="d-none" data-name="Master" data-owner="Tor">
                                             <a href="#" class="btn btn-block">
                                                 <span class="d-none d-sm-inline">Remove</span>
                                                 &#128400;
@@ -203,7 +225,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form class="needs-validation">
                         <label class="form-label">Please set a new price</label>
                         <div class="input-group has-validation">
                             <span class="input-group-text">$</span>
@@ -224,7 +246,36 @@
         </div>
     </div>
 
-    <!-- Confirm delete Modal -->
+    <div class="modal fade" id="updateDateDialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">New date</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <label class="form-label">Please set a new date</label>
+                        <div class="input-group">
+
+                            <input type="text" class="form-control" id="dateInputField"
+                                aria-describedby="inputGroupPrepend">
+                        </div>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a href="#" class="btn btn-primary btn-dark" id="checkDate">Confirm</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="deleteDialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -265,11 +316,38 @@
             });
         });
 
+        $("#checkSortByDateDate").click(function (event) {
+            let dateField1 = document.getElementById("dateInputField1")
+            let dateField2 = document.getElementById("dateInputField2")
+            let data1 = dateField1.value.split(".")
+            let data2 = dateField2.value.split(".")
+            if (Date.parse(data1[2] + '-' + data1[1] + '-' + data1[0]) < Date.parse(data2[2] + '-' + data2[1] + '-' + data2[0])) {
+                dateField1.classList.remove('is-invalid')
+                dateField2.classList.remove('is-invalid')
+                document.activeElement.href = '/sort/with/' + data1[2] + "-" + data1[1] + "-" + data1[0] + '/by/' + data2[2] + "-" + data2[1] + "-" + data2[0]
+            } else {
+                dateField1.classList.add('is-invalid')
+                dateField2.classList.add('is-invalid')
+            }
+        })
+        $("#checkDate").click(function (event) {
+            let dateField = document.getElementById("dateInputField")
+            let arrayData = dateField.value.split(".")
+            if (arrayData[0] <= 31 && arrayData[1] <= 12) {
+                dateField.classList.remove('is-invalid')
+                document.activeElement.href = '/date/' + arrayData[2] + "-" + arrayData[1] + "-" + arrayData[0]
+            } else {
+
+                dateField.classList.add('is-invalid')
+            }
+        })
         $("#updatePriseUrl").click(function (event) {
             let target = $(event.relatedTarget)
             let priceField = document.getElementById("priseInputField")
             document.activeElement.href = '/product/' + target.data('id') + '/prise/' + priceField.value
         })
+
+
         $('#deleteDialog').on('show.bs.modal', function (event) {
             var target = $(event.relatedTarget)
             $(this).find('.modal-body').text('Please confirm delete lot: "' + target.data('productName') + '"')
