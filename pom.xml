@@ -21,6 +21,9 @@
         <module>dao</module>
         <module>dao-api</module>
         <module>rest-app</module>
+        <module>service</module>
+        <module>service-api</module>
+        <module>service-rest</module>
     </modules>
 
     <distributionManagement>
@@ -88,6 +91,23 @@
                 <version>${project.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.tisserand</groupId>
+                <artifactId>service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.tisserand</groupId>
+                <artifactId>service-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.tisserand</groupId>
+                <artifactId>service-rest</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.thymeleaf</groupId>
