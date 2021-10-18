@@ -4,10 +4,14 @@ import com.tisserand.dao.UserDao;
 import com.tisserand.model.User;
 import com.tisserand.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
+@Transactional
 public class UserServiceImpl implements UserService {
     private final UserDao userDao;
 
