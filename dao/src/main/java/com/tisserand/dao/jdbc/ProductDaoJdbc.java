@@ -3,6 +3,7 @@ package com.tisserand.dao.jdbc;
 import com.tisserand.dao.ProductDao;
 import com.tisserand.model.Product;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
@@ -20,6 +21,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Repository
+@PropertySource("classpath:dao.properties")
 public class ProductDaoJdbc implements ProductDao {
 
     @Value("${product.selectAll}")

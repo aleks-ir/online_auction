@@ -3,6 +3,7 @@ package com.tisserand.dao.jdbc;
 import com.tisserand.dao.UserDao;
 import com.tisserand.model.User;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
+@PropertySource("classpath:dao.properties")
 public class UserDaoJdbc implements UserDao {
 
     @Value("${user.selectAll}")

@@ -21,6 +21,9 @@
         <module>dao</module>
         <module>dao-api</module>
         <module>rest-app</module>
+        <module>service</module>
+        <module>service-api</module>
+        <module>service-rest</module>
     </modules>
 
     <distributionManagement>
@@ -88,6 +91,23 @@
                 <version>${project.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.tisserand</groupId>
+                <artifactId>service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.tisserand</groupId>
+                <artifactId>service-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.tisserand</groupId>
+                <artifactId>service-rest</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.thymeleaf</groupId>
@@ -282,71 +302,6 @@
         </plugins>
     </build>
 
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.2.0</version>
-                <configuration>
-                    <stylesheetfile>${basedir}/src/main/javadoc/stylesheet.css</stylesheetfile>
-                    <show>public</show>
-                </configuration>
-                <reportSets>
-                    <reportSet>
-                        <id>default</id>
-                        <reports>
-                            <report>javadoc</report>
-                        </reports>
-                    </reportSet>
-                    <reportSet>
-                        <id>aggregate</id>
-                        <reports>
-                            <report>aggregate</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
-            <plugin>
-                <groupId>com.github.spotbugs</groupId>
-                <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>4.2.2</version>
-                <configuration>
-                    <xmlOutput>true</xmlOutput>
-                    <!-- Optional directory to put spotbugs xdoc xml report -->
-                    <xmlOutputDirectory>target/site</xmlOutputDirectory>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.14.0</version>
-                <configuration>
-                    <rulesets>
-                        <!-- A rule set, that comes bundled with PMD -->
-                        <ruleset>/category/java/bestpractices.xml</ruleset>
-                        <ruleset>/rulesets/java/maven-pmd-plugin-default.xml</ruleset>
-                        <!-- Custom local file system rule set -->
-                        <!--                        <ruleset>d:\rulesets\strings.xml</ruleset>-->
-                        <!-- Custom remote rule set accessed via a URL -->
-                        <ruleset>
-                            https://gitbox.apache.org/repos/asf?p=maven-pmd-plugin.git;a=blob_plain;f=src/main/resources/rulesets/java/maven-pmd-plugin-default.xml;hb=HEAD
-                        </ruleset>
-                    </rulesets>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.1.2</version>
-                <configuration>
-                    <sourceDirectories>
-                        <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
-                    </sourceDirectories>
-                    <configLocation>google_checks.xml</configLocation>
-                </configuration>
-            </plugin>
-        </plugins>
-    </reporting>
+
 
 </project>
