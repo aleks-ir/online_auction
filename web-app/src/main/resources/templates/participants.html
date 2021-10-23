@@ -61,29 +61,31 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Money</th>
+                                    <th>Value of lots</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="user : ${user}">
-                                    <td class="align-middle" th:text="${user.name}">Master</td>
-                                    <td class="align-middle" th:text="${user.email}">master@red.com</td>
-                                    <td class="align-middle" th:text="${user.money}">1000</td>
+                                <tr th:each="user : ${users}">
+                                    <td class="align-middle" th:text="${user.userName}">Master</td>
+                                    <td class="align-middle" th:text="${user.userEmail}">master@red.com</td>
+                                    <td class="align-middle" th:text="${user.userMoney}">100</td>
+                                    <td class="align-middle" th:text="${user.valueOfAllProducts}">14.3</td>
                                 </tr>
 
-                                <tr th:each="user : ${user}">
-                                    <td class="align-middle" th:text="${user.name}">Andrey</td>
-                                    <td class="align-middle" th:text="${user.email}">andr0421@gmail.com</td>
-                                    <td class="align-middle" th:text="${user.money}">3200</td>
+                                <tr th:remove="all">
+                                    <td class="align-middle">Andrey</td>
+                                    <td class="align-middle">andr0421@gmail.com</td>
+                                    <td class="align-middle">32</td>
                                 </tr>
-                                <tr th:each="user : ${user}">
-                                    <td class="align-middle" th:text="${user.name}">Abraham</td>
-                                    <td class="align-middle" th:text="${user.email}">abraham32@gmail.com</td>
-                                    <td class="align-middle" th:text="${user.money}">240</td>
+                                <tr th:remove="all">
+                                    <td class="align-middle">Abraham</td>
+                                    <td class="align-middle">abraham32@gmail.com</td>
+                                    <td class="align-middle">40</td>
                                 </tr>
-                                <tr th:each="user : ${user}">
-                                    <td class="align-middle" th:text="${user.name}">Tor</td>
-                                    <td class="align-middle" th:text="${user.email}">tor888@red.com</td>
-                                    <td class="align-middle" th:text="${user.money}">240</td>
+                                <tr th:remove="all">
+                                    <td class="align-middle">Tor</td>
+                                    <td class="align-middle">tor888@red.com</td>
+                                    <td class="align-middle">20</td>
                                 </tr>
                             </tbody>
                         </table>

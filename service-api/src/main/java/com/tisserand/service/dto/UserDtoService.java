@@ -1,4 +1,4 @@
-package com.tisserand.service;
+package com.tisserand.service.dto;
 
 import com.tisserand.model.dto.UserDto;
 

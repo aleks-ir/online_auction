@@ -36,7 +36,7 @@ public class ProductDaoJdbcTest {
     @Test
     public void findAllByDateTest() {
         productDao.create(new Product("Test", 800F, "2020-02-12", 2));
-        List<Product> products = productDao.findAllIdByDate("2020-02-12");
+        List<Product> products = productDao.findAllByDate("2020-02-12");
         Assertions.assertNotNull(products);
         assertTrue(products.size() > 0);
     }

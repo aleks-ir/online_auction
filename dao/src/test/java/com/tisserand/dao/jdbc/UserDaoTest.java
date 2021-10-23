@@ -69,29 +69,4 @@ public class UserDaoTest {
         Assertions.assertEquals(user.getUserMoney(), realUser.getUserMoney());
     }
 
-    @Test
-    public void takeMoneyTest(){
-        List<User> users = userDao.findAll();
-        Assertions.assertNotNull(users);
-        assertTrue(users.size() > 0);
-
-        User user = users.get(0);
-        userDao.takeMoney(10F,user.getUserId());
-
-        User realUser = userDao.findAll().get(0);
-        Assertions.assertEquals(user.getUserMoney() - 10F, realUser.getUserMoney());
-    }
-
-    @Test
-    public void putMoneyTest(){
-        List<User> users = userDao.findAll();
-        Assertions.assertNotNull(users);
-        assertTrue(users.size() > 0);
-
-        User user = users.get(0);
-        userDao.putMoney(10F,user.getUserId());
-
-        User realUser = userDao.findAll().get(0);
-        Assertions.assertEquals(user.getUserMoney() + 10F, realUser.getUserMoney());
-    }
 }

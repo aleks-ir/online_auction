@@ -1,8 +1,8 @@
-package com.tisserand.service.impl;
+package com.tisserand.service.impl.dto;
 
-import com.tisserand.dao.UserDtoDao;
+import com.tisserand.dao.dto.UserDtoDao;
 import com.tisserand.model.dto.UserDto;
-import com.tisserand.service.UserDtoService;
+import com.tisserand.service.dto.UserDtoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,5 +1,6 @@
 package com.tisserand.dao;
 
+import com.tisserand.model.Product;
 import com.tisserand.model.User;
 
 import java.util.List;
@@ -11,10 +12,6 @@ public interface UserDao {
     Optional<User> findById(Integer userId);
 
     Integer update(User user);
-
-    Integer takeMoney(Float value, Integer userId);
-
-    Integer putMoney(Float value, Integer userId);
 
     Integer count();
 }

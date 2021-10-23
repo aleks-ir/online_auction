@@ -2,6 +2,8 @@ package com.tisserand.dao.jdbc;
 
 import com.tisserand.dao.ProductDao;
 import com.tisserand.model.Product;
+import org.springframework.beans.factory.BeanCreationException;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.dao.support.DataAccessUtils;
@@ -14,7 +16,6 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -22,19 +23,13 @@ import java.util.Optional;
 
 @Repository
 @PropertySource("classpath:dao.properties")
-public class ProductDaoJdbc implements ProductDao {
+public class ProductDaoJdbc implements ProductDao, InitializingBean {
 
     @Value("${product.selectAll}")
     private String findAllSql;
 
-    @Value("${product.selectAllIdByDate}")
-    private String findAllIdByDateSql;
-
-    @Value("${product.selectAllWithSortByName}")
-    private String findAllWithSortByNameSql;
-
-    @Value("${product.selectAllWithSortByDate}")
-    private String findAllWithSortByDateSql;
+    @Value("${product.selectAllByDate}")
+    private String findAllByDateSql;
 
     @Value("${product.create}")
     private String createSql;
@@ -54,29 +49,36 @@ public class ProductDaoJdbc implements ProductDao {
     @Value("${product.delete}")
     private String deleteSql;
 
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private NamedParameterJdbcTemplate template;
 
     private RowMapper rowMapper = BeanPropertyRowMapper.newInstance(Product.class);
 
-    public ProductDaoJdbc(DataSource dataSource) {
-        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+    @Override
+    public void afterPropertiesSet() {
+        if (template == null){
+            throw new BeanCreationException("NamedParameterJdbcTemplate is null on JdbcDepartmentDAO");}
     }
+
+    public ProductDaoJdbc(NamedParameterJdbcTemplate template) {
+        this.template = template;
+    }
+
 
     @Override
     public List<Product> findAll() {
-        return namedParameterJdbcTemplate.query(findAllSql, rowMapper);
+        return template.query(findAllSql, rowMapper);
     }
 
     @Override
-    public List<Product> findAllIdByDate(String date) {
+    public List<Product> findAllByDate(String date) {
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("PRODUCT_DATE", date);
-        return namedParameterJdbcTemplate.query(findAllIdByDateSql, sqlParameterSource, rowMapper);
+        return template.query(findAllByDateSql, sqlParameterSource, rowMapper);
     }
 
     @Override
     public Optional<Product> findById(Integer productId) {
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("PRODUCT_ID", productId);
-        List<Product> results = namedParameterJdbcTemplate.query(findByIdSql, sqlParameterSource, rowMapper);
+        List<Product> results = template.query(findByIdSql, sqlParameterSource, rowMapper);
         return Optional.ofNullable(DataAccessUtils.uniqueResult(results));
     }
 
@@ -90,14 +92,14 @@ public class ProductDaoJdbc implements ProductDao {
                 .addValue("PRODUCT_PRICE", product.getProductPrice())
                 .addValue("PRODUCT_DATE", product.getProductDate())
                 .addValue("SALESMAN_ID", product.getSalesmanId());
-        namedParameterJdbcTemplate.update(createSql, sqlParameterSource, keyHolder);
+        template.update(createSql, sqlParameterSource, keyHolder);
         Integer productId = Objects.requireNonNull(keyHolder.getKey()).intValue();
         product.setProductId(productId);
         return productId;
     }
 
     private boolean isProductNameUnique(Product product) {
-        return namedParameterJdbcTemplate.queryForObject(checkSql,
+        return template.queryForObject(checkSql,
                 new MapSqlParameterSource("PRODUCT_NAME", product.getProductName()), Integer.class) == 0;
     }
 
@@ -107,18 +109,18 @@ public class ProductDaoJdbc implements ProductDao {
                 new MapSqlParameterSource("PRODUCT_PRICE", product.getProductPrice())
                         .addValue("CUSTOMER_ID", product.getCustomerId())
                         .addValue("PRODUCT_ID", product.getProductId());
-        return namedParameterJdbcTemplate.update(updatePriceAndCustomerSql, sqlParameterSource);
+        return template.update(updatePriceAndCustomerSql, sqlParameterSource);
     }
 
     @Override
     public Integer delete(Integer productId) {
-        return namedParameterJdbcTemplate.update(deleteSql, new MapSqlParameterSource()
+        return template.update(deleteSql, new MapSqlParameterSource()
                 .addValue("PRODUCT_ID", productId));
     }
 
     @Override
     public Integer count() {
-        return namedParameterJdbcTemplate.queryForObject(countSql, new HashMap<>(), Integer.class);
+        return template.queryForObject(countSql, new HashMap<>(), Integer.class);
     }
 
 

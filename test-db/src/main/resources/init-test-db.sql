@@ -12,3 +12,5 @@ INSERT INTO PRODUCTS (product_id, product_name, product_price, product_date, sal
 INSERT INTO PRODUCTS (product_id, product_name, product_price, product_date, salesman_id) VALUES (6, 'Button', 2, '2022-01-07', 5);
 INSERT INTO PRODUCTS (product_id, product_name, product_price, product_date, salesman_id) VALUES (7, 'Zipper Replacement', 16.05, '2022-01-07', 5);
 INSERT INTO PRODUCTS (product_id, product_name, product_price, product_date, salesman_id) VALUES (8, 'Business Shirt', 3.45, '2022-01-06', 1);
+
+INSERT INTO TEST_DATES (date_id, test_date) VALUES (1, NOW());

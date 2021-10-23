@@ -49,7 +49,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> findAllIdByDate(String date) {
-        return productDao.findAllIdByDate(date);
+        return productDao.findAllByDate(date);
     }
 
     @Override

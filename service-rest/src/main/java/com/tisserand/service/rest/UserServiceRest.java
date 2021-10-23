@@ -1,6 +1,5 @@
 package com.tisserand.service.rest;
 
-import com.tisserand.model.Product;
 import com.tisserand.model.User;
 import com.tisserand.service.UserService;
 import org.springframework.http.*;
@@ -42,16 +41,6 @@ public class UserServiceRest implements UserService {
         HttpEntity<User> entity = new HttpEntity<>(user, headers);
         ResponseEntity<Integer> result = restTemplate.exchange(url, HttpMethod.PUT, entity, Integer.class);
         return result.getBody();
-    }
-
-    @Override
-    public Integer takeMoney(Float value, Integer userId) {
-        return null;
-    }
-
-    @Override
-    public Integer putMoney(Float value, Integer userId) {
-        return null;
     }
 
     @Override

@@ -1,8 +1,7 @@
-package com.tisserand.service.rest;
+package com.tisserand.service.rest.dto;
 
-import com.tisserand.model.dto.ProductDto;
 import com.tisserand.model.dto.UserDto;
-import com.tisserand.service.UserDtoService;
+import com.tisserand.service.dto.UserDtoService;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

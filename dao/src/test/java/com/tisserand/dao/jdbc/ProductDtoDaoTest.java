@@ -1,5 +1,6 @@
 package com.tisserand.dao.jdbc;
 
+import com.tisserand.dao.jdbc.dto.ProductDtoDaoJdbc;
 import com.tisserand.model.dto.ProductDto;
 import com.tisserand.testdb.SpringJdbcConfig;
 import org.junit.jupiter.api.Assertions;
@@ -17,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 @DataJdbcTest
-@Import({ProductDtoDaoJdbc.class})
+@Import({ProductDtoDaoJdbc.class, ProductDaoJdbc.class})
 @PropertySource({"classpath:dao.properties"})
 @ContextConfiguration(classes = SpringJdbcConfig.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -25,6 +26,9 @@ public class ProductDtoDaoTest {
 
     @Autowired
     private ProductDtoDaoJdbc productDtoDao;
+
+    @Autowired
+    private ProductDaoJdbc productDao;
 
     @Test
     public void findAllProductWithNameOwnerTest() {
@@ -39,6 +43,17 @@ public class ProductDtoDaoTest {
         Assertions.assertNotNull(realProductDto.getProductDate());
         Assertions.assertNotNull(realProductDto.getProductPrice());
         Assertions.assertNotNull(realProductDto.getNameOwner());
+
+    }
+
+    @Test
+    public void findAllProductWithNameOwnerByDateTest() {
+        String date = productDao.findById(1).get().getProductDate();
+        List<ProductDto> productsDto = productDtoDao.findAllProductWithNameOwnerByDate(date, date);
+        Assertions.assertNotNull(productsDto);
+        assertTrue(productsDto.size() > 0);
+
+
 
     }
 }

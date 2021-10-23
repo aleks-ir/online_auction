@@ -1,4 +1,4 @@
-package com.tisserand.dao;
+package com.tisserand.dao.dto;
 
 import com.tisserand.model.dto.UserDto;
 

@@ -1,7 +1,7 @@
-package com.tisserand.service.rest;
+package com.tisserand.service.rest.dto;
 
 import com.tisserand.model.dto.ProductDto;
-import com.tisserand.service.ProductDtoService;
+import com.tisserand.service.dto.ProductDtoService;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -25,6 +25,15 @@ public class ProductDtoServiceRest implements ProductDtoService {
     @Override
     public List<ProductDto> findAllProductWithNameOwner() {
         ResponseEntity<List<ProductDto>> responseEntity = restTemplate.exchange(url, GET, null, new ParameterizedTypeReference<>() {});
+        return responseEntity.getBody();
+    }
+
+    @Override
+    public List<ProductDto> findAllProductWithNameOwnerByDate(String startDate, String endDate) {
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        String stringStartDate = dateFormat.format(startDate);
+//        String stringEndDate = dateFormat.format(endDate);
+        ResponseEntity<List<ProductDto>> responseEntity = restTemplate.exchange(url + "?startDate={startDate}&endDate={endDate}", GET, null, new ParameterizedTypeReference<>() {}, startDate, endDate);
         return responseEntity.getBody();
     }
 

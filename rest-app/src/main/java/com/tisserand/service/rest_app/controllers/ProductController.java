@@ -1,4 +1,4 @@
-package com.tisserand.service.rest_app;
+package com.tisserand.service.rest_app.controllers;
 
 import com.tisserand.model.Product;
 import com.tisserand.service.ProductService;
@@ -24,7 +24,7 @@ public class ProductController {
         return productService.findAll();
     }
 
-    @GetMapping(value = "/product/{id}")
+    @GetMapping(value = "/products/{id}")
     public ResponseEntity<Product> findById(@PathVariable Integer id) {
         Optional<Product> optional = productService.findById(id);
         return optional.isPresent()
@@ -33,18 +33,18 @@ public class ProductController {
     }
 
     @PostMapping(value = "/products", consumes = {"application/json"}, produces = {"application/json"})
-    public ResponseEntity<Integer> createProduct(@RequestBody Product department) {
-        Integer id = productService.create(department);
+    public ResponseEntity<Integer> createProduct(@RequestBody Product product) {
+        Integer id = productService.create(product);
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
-//    @PutMapping(value = "/products", consumes = {"application/json"}, produces = {"application/json"})
-//    public ResponseEntity<Integer> updateDepartment(@RequestBody Product department) {
-//        Integer id = departmentService.update(department);
-//        return new ResponseEntity<>(id, HttpStatus.OK);
-//    }
+    @PutMapping(value = "/products", consumes = {"application/json"}, produces = {"application/json"})
+    public ResponseEntity<Integer> updatePriceAndCustomer(@RequestBody Product product) {
+        Integer id = productService.updatePriceAndCustomer(product);
+        return new ResponseEntity<>(id, HttpStatus.OK);
+    }
 
-    @DeleteMapping(value = "/product/{id}", produces = {"application/json"})
+    @DeleteMapping(value = "/products/{id}", produces = {"application/json"})
     public ResponseEntity<Integer> deleteProduct(@PathVariable Integer id) {
         Integer result = productService.delete(id);
         return result > 0
@@ -53,7 +53,7 @@ public class ProductController {
 
     }
 
-    @GetMapping(value = "/product/count")
+    @GetMapping(value = "/products/count")
     public ResponseEntity<Integer> count() {
         return new ResponseEntity<>(productService.count(), HttpStatus.OK);
     }

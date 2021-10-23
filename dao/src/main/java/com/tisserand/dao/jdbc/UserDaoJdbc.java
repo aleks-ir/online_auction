@@ -2,6 +2,8 @@ package com.tisserand.dao.jdbc;
 
 import com.tisserand.dao.UserDao;
 import com.tisserand.model.User;
+import org.springframework.beans.factory.BeanCreationException;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.dao.support.DataAccessUtils;
@@ -12,14 +14,13 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
 @PropertySource("classpath:dao.properties")
-public class UserDaoJdbc implements UserDao {
+public class UserDaoJdbc implements UserDao, InitializingBean {
 
     @Value("${user.selectAll}")
     private String selectSql;
@@ -30,32 +31,33 @@ public class UserDaoJdbc implements UserDao {
     @Value("${user.findById}")
     private String findByIdSql;
 
-    @Value("${user.takeMoney}")
-    private String takeMoneySql;
-
-    @Value("${user.putMoney}")
-    private String putMoneySql;
-
     @Value("${user.count}")
     private String countSql;
 
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private NamedParameterJdbcTemplate template;
 
     private RowMapper rowMapper = BeanPropertyRowMapper.newInstance(User.class);
 
-    public UserDaoJdbc(DataSource dataSource) {
-        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+    public UserDaoJdbc(NamedParameterJdbcTemplate template) {
+        this.template = template;
+    }
+
+
+    @Override
+    public void afterPropertiesSet() {
+        if (template == null){
+            throw new BeanCreationException("NamedParameterJdbcTemplate is null on JdbcDepartmentDAO");}
     }
 
     @Override
     public List<User> findAll() {
-        return namedParameterJdbcTemplate.query(selectSql, rowMapper);
+        return template.query(selectSql, rowMapper);
     }
 
     @Override
     public Optional<User> findById(Integer departmentId) {
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("USER_ID", departmentId);
-        List<User> results = namedParameterJdbcTemplate.query(findByIdSql, sqlParameterSource, rowMapper);
+        List<User> results = template.query(findByIdSql, sqlParameterSource, rowMapper);
         return Optional.ofNullable(DataAccessUtils.uniqueResult(results));
     }
 
@@ -67,28 +69,13 @@ public class UserDaoJdbc implements UserDao {
                         .addValue("USER_EMAIL", user.getUserEmail())
                         .addValue("USER_MONEY", user.getUserMoney())
                         .addValue("USER_ID", user.getUserId());
-        return namedParameterJdbcTemplate.update(updateSql, sqlParameterSource);
+        return template.update(updateSql, sqlParameterSource);
     }
 
-    @Override
-    public Integer takeMoney(Float value, Integer userId) {
-        SqlParameterSource sqlParameterSource =
-                new MapSqlParameterSource("USER_ID", userId)
-                        .addValue("VALUE", value);
-        return namedParameterJdbcTemplate.update(takeMoneySql, sqlParameterSource);
-    }
-
-    @Override
-    public Integer putMoney(Float value, Integer userId) {
-        SqlParameterSource sqlParameterSource =
-                new MapSqlParameterSource("USER_ID", userId)
-                        .addValue("VALUE", value);
-        return namedParameterJdbcTemplate.update(putMoneySql, sqlParameterSource);
-    }
 
 
     @Override
     public Integer count() {
-        return namedParameterJdbcTemplate.queryForObject(countSql, new HashMap<>(), Integer.class);
+        return template.queryForObject(countSql, new HashMap<>(), Integer.class);
     }
 }

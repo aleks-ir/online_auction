@@ -1,7 +1,8 @@
 package com.tisserand.dao.jdbc;
 
 
-import com.tisserand.dao.UserDtoDao;;
+import com.tisserand.dao.dto.UserDtoDao;;
+import com.tisserand.dao.jdbc.dto.UserDtoDaoJdbc;
 import com.tisserand.model.dto.UserDto;
 import com.tisserand.testdb.SpringJdbcConfig;
 import org.junit.jupiter.api.Assertions;

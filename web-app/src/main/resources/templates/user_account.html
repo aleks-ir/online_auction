@@ -66,12 +66,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="user : ${user}">
-                                    <td class="align-middle" th:text="${user.name}">Master</td>
-                                    <td class="align-middle" th:text="${user.email}">master@red.com</td>
-                                    <td class="align-middle" th:text="${user.money}">1000</td>
+                                <tr th:object="${user}">
+                                    <td class="align-middle" th:text="*{userName}">Master</td>
+                                    <td class="align-middle" th:text="*{userEmail}">master@red.com</td>
+                                    <td class="align-middle" th:text="*{userMoney}">1000</td>
                                     <td class="text-end">
-                                        <a href="edit_user.html" th:href="@{|/user/${user.userID}|}"
+                                        <a href="edit_user.html" th:href="@{/edit_user}"
                                             class="btn btn-block" title="Edit user">
                                             <i class="bi-pen"></i><span class="d-none d-sm-inline">&nbsp;Edit</span></a>
                                     </td>

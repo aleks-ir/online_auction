@@ -36,16 +36,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Integer takeMoney(Float value, Integer userId) {
-        return userDao.takeMoney(value, userId);
-    }
-
-    @Override
-    public Integer putMoney(Float value, Integer userId) {
-        return userDao.putMoney(value, userId);
-    }
-
-    @Override
     public Integer count() {
         return userDao.count();
     }

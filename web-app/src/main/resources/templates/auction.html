@@ -14,299 +14,299 @@
 
 <body>
 
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-light bg-light">
-            <div class="container">
-                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav w-100 justify-content-center">
-                        <li class="nav-item">
-                            <a class="nav-link pe-4" href="participants.html"
-                                th:href="@{/participants}">Participants</a>
-                        </li>
-                        <li>
-                            <a class="nav-link d-block d-sm-none" href="/">Auction</a>
-                            <a href="auction.html" th:href="@{/auction}" class="navbar-brand d-none d-sm-block"><img
-                                    src="../../resources/static/img/auction.svg" th:src="@{/img/auction.svg}"
-                                    height="32" width="32" alt="HR"></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="user_account.html" th:href="@{/user_account}">User
-                                account</a>
-                        </li>
-                    </ul>
-                </div>
+<header>
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+        <div class="container">
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav w-100 justify-content-center">
+                    <li class="nav-item">
+                        <a class="nav-link pe-4" href="participants.html"
+                           th:href="@{/participants}">Participants</a>
+                    </li>
+                    <li>
+                        <a class="nav-link d-block d-sm-none" href="/">Auction</a>
+                        <a href="auction.html" th:href="@{/auction}" class="navbar-brand d-none d-sm-block"><img
+                                src="../../resources/static/img/auction.svg" th:src="@{/img/auction.svg}"
+                                height="32" width="32" alt="HR"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="user_account.html" th:href="@{/user_account}">User
+                            account</a>
+                    </li>
+                </ul>
+            </div>
 
-            </div>
-            </div>
-        </nav>
-        <nav id="main-header" class="py-1 mb-3 navbar navbar-light bg-light text-dark">
-            <div class="container-fluid">
-                <span class="navbar-brand text-uppercase">Auction</span>
-                <span><span class="d-none d-sm-inline" id="currentDate"></span>
+        </div>
+        </div>
+    </nav>
+    <nav id="main-header" class="py-1 mb-3 navbar navbar-light bg-light text-dark">
+        <div class="container-fluid">
+            <span class="navbar-brand text-uppercase">Auction</span>
+            <span><p th:text="${date}" class="d-none d-sm-inline" id="currentDate"></p>
                     <div data-bs-toggle="modal" data-bs-target="#updateDateDialog" class="btn btn-sm"
-                        title="Update Date">
+                         title="Update Date">
                         &#8634;
                     </div>
                 </span>
 
 
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a href="add_product.html" th:href="@{/product}" class="btn btn-light" title="Add product">
-                            <i class="bi-plus"></i>&nbsp;<span class="d-none d-sm-inline">Add</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="add_product.html" th:href="@{/add_product}" class="btn btn-light" title="Add product">
+                        <i class="bi-plus"></i>&nbsp;<span class="d-none d-sm-inline">Add</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
 
-    <section id="products">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col">
-                    <div class="card">
-                        <table class="table table-striped">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th>Title</th>
-                                    <th>Owner</th>
-                                    <th>Price</th>
-                                    <th>Closing date</th>
-                                    <th class="text-end pe-3">
-                                        <div class="btn-group dropend">
-                                            <a href="#" data-bs-toggle="dropdown" style='text-decoration: none'
-                                                class="btn-sm btn-dark ">
-                                                &#60; <span class="d-none d-sm-inline ">Sort by date</span>
-                                            </a>
-                                            <div class="dropdown-menu ">
-                                                <div class="d-grid gap-2 col-7 mx-auto">
-                                                    <label class="form-label" for="field_userMoney">Enter date</label>
-                                                </div>
-
-                                                <div class="px-2 pb-1">
-                                                    <input type="text" class="form-control has-invalid"
-                                                        id="dateInputField1" placeholder="With"
-                                                        aria-describedby="inputGroupPrepend">
-                                                </div>
-                                                <div class="px-2 pb-2">
-                                                    <input type="text" class="form-control has-invalid"
-                                                        id="dateInputField2" placeholder="By"
-                                                        aria-describedby="inputGroupPrepend">
-                                                </div>
-
-                                                <div class="d-grid gap-2 col-6 mx-auto ">
-                                                    <a href="#" class="btn btn-secondary btn-sm"
-                                                        id="checkSortByDateDate">Sort</a>
-                                                </div>
+<section id="products">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <table class="table table-striped">
+                        <thead class="table-dark">
+                        <tr>
+                            <th>Title</th>
+                            <th>Owner</th>
+                            <th>Price</th>
+                            <th>Closing date</th>
+                            <th class="text-end pe-3">
+                                <div class="btn-group dropend">
+                                    <a href="#" data-bs-toggle="dropdown" style='text-decoration: none'
+                                       class="btn-sm btn-dark ">
+                                        &#60; <span class="d-none d-sm-inline ">Sort by date</span>
+                                    </a>
+                                    <div class="dropdown-menu ">
+                                        <form method="GET" action="/auction" id="formSortByDate">
+                                            <div class="d-grid pb-3  gap-2 col-6 mx-auto ">
+                                                <button type="submit" class="btn btn-dark btn-sm"
+                                                        id="checkSortByDate">Sort
+                                                </button>
                                             </div>
-                                        </div>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr th:each="product : ${product}" th:each="user : ${user}"></tr>
-                                <td class="align-middle" th:text="${product.productName}">Hat</td>
-                                <td class="align-middle" th:text="${product.ownerName}">Abraham</td>
-                                <td class="align-middle" th:text="${product.price}">100</td>
-                                <td class="align-middle" th:text="${product.expiration date}">23.02.2022</td>
-                                <td class="text-end">
-                                    <span data-bs-toggle="modal" data-bs-target="#markUpDialog" id="btnPrice"
-                                        class="d-none" data-name="Deadpool" data-owner="Abraham"
-                                        th:attr="data-productId=${product.productId},data-productName=${product.productName},data-name=${user.name},data-owner=${product.owner}">
-                                        <a href="#" class="btn btn-block">
-                                            <span class="d-none d-sm-inline">Mark up</span>
-                                            &#128400;
-                                        </a>
-                                    </span>
-                                    <span data-bs-toggle="modal" data-bs-target="#deleteDialog" id="btnDelete"
-                                        class="d-none" data-name="Deadpool" data-owner="Abraham"
-                                        th:attr="data-productId=${product.productId},data-productName=${product.productName},data-name=${user.name},data-owner=${product.owner}">
-                                        <a href="#" class="btn btn-block">
-                                            <span class="d-none d-sm-inline">Remove</span>
-                                            &#128400;
-                                        </a>
-                                    </span>
-                                </td>
-                                </tr>
 
+                                            <div class="px-2 pb-3">
+                                                <span class="input-group-text">From</span>
+                                                <input type="date" class="form-control has-invalid"
+                                                       id="dateInputField1" name="startDate" placeholder="From"
+                                                       aria-describedby="inputGroupPrepend">
 
-                                <tr th:remove="all">
-                                    <td class="align-middle">Stove</td>
-                                    <td class="align-middle">Master</td>
-                                    <td class="align-middle">200</td>
-                                    <td class="align-middle">07.02.2022</td>
-                                    <td class="text-end">
+                                            </div>
+
+                                            <div class="px-2 pb-3">
+                                                <span class="input-group-text">By</span>
+                                                <input type="date" class="form-control has-invalid"
+                                                       id="dateInputField2" name="endDate" placeholder="By"
+                                                       aria-describedby="inputGroupPrepend">
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="product : ${products}" th:object="${user}">
+                            <td class="align-middle" th:text="${product.productName}">Hat</td>
+                            <td class="align-middle" th:text="${product.nameOwner}">Abraham</td>
+                            <td class="align-middle" th:text="${product.productPrice}">100</td>
+                            <td class="align-middle" th:text="${product.productDate}">23.02.2022</td>
+                            <td class="text-end">
                                         <span data-bs-toggle="modal" data-bs-target="#markUpDialog" id="btnPrice"
-                                            class="d-none" data-name="Master" data-owner="Master">
+                                              class="d-none" data-name="Master" data-owner="Abraham"
+                                              th:attr="data-product_id=${product.productId},data-product_name=${product.productName},data-product_price=${product.productPrice},data-customer_id=*{userId},data-name=*{userName},data-owner=${product.nameOwner}">
                                             <a href="#" class="btn btn-block">
                                                 <span class="d-none d-sm-inline">Mark up</span>
                                                 &#128400;
                                             </a>
                                         </span>
-                                        <span data-bs-toggle="modal" data-bs-target="#deleteDialog" id="btnDelete"
-                                            class="d-none" data-name="Master" data-owner="Master">
+                                <span data-bs-toggle="modal" data-bs-target="#deleteDialog" id="btnDelete"
+                                      class="d-none" data-name="Master" data-owner="Abraham"
+                                      th:attr="data-product_id=${product.productId},data-product_name=${product.productName},data-name=*{userName},data-owner=${product.nameOwner}">
                                             <a href="#" class="btn btn-block">
                                                 <span class="d-none d-sm-inline">Remove</span>
                                                 &#128465;
                                             </a>
                                         </span>
-                                    </td>
-                                </tr>
-                                <tr th:remove="all">
-                                    <td class="align-middle">Dill</td>
-                                    <td class="align-middle">Abraham</td>
-                                    <td class="align-middle">3</td>
-                                    <td class="align-middle">21.02.2022</td>
-                                    <td class="text-end">
-                                        <span data-bs-toggle="modal" data-bs-target="#markUpDialog" id="btnPrice"
-                                            class="d-none" data-name="Master" data-owner="Abraham">
-                                            <a href="#" class="btn btn-block">
-                                                <span class="d-none d-sm-inline">Mark up</span>
-                                                &#128400;
-                                            </a>
-                                        </span>
-                                        <span data-bs-toggle="modal" data-bs-target="#deleteDialog" id="btnDelete"
-                                            class="d-none" data-name="Master" data-owner="Abraham">
-                                            <a href="#" class="btn btn-block">
-                                                <span class="d-none d-sm-inline">Remove</span>
-                                                &#128400;
-                                            </a>
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr th:remove="all">
-                                    <td class="align-middle">Car</td>
-                                    <td class="align-middle">Tor</td>
-                                    <td class="align-middle">1000</td>
-                                    <td class="align-middle">25.02.2022</td>
-                                    <td class="text-end">
-                                        <span data-bs-toggle="modal" data-bs-target="#markUpDialog" id="btnPrice"
-                                            class="d-none" data-name="Master" data-owner="Tor">
-                                            <a href="#" class="btn btn-block">
-                                                <span class="d-none d-sm-inline">Mark up</span>
-                                                &#128400;
-                                            </a>
-                                        </span>
-                                        <span data-bs-toggle="modal" data-bs-target="#deleteDialog" id="btnDelete"
-                                            class="d-none" data-name="Master" data-owner="Tor">
-                                            <a href="#" class="btn btn-block">
-                                                <span class="d-none d-sm-inline">Remove</span>
-                                                &#128400;
-                                            </a>
-                                        </span>
-                                    </td>
-                                </tr>
+                            </td>
+                        </tr>
 
-                            </tbody>
-                        </table>
-                    </div>
+
+                        <tr th:remove="all">
+                            <td class="align-middle">Stove</td>
+                            <td class="align-middle">Master</td>
+                            <td class="align-middle">200</td>
+                            <td class="align-middle">07.02.2022</td>
+                            <td class="text-end">
+                                        <span data-bs-toggle="modal" data-bs-target="#markUpDialog" id="btnPrice"
+                                              class="d-none" data-name="Master" data-owner="Master">
+                                            <a href="#" class="btn btn-block">
+                                                <span class="d-none d-sm-inline">Mark up</span>
+                                                &#128400;
+                                            </a>
+                                        </span>
+                                <span data-bs-toggle="modal" data-bs-target="#deleteDialog" id="btnDelete"
+                                      class="d-none" data-name="Master" data-owner="Master">
+                                            <a href="#" class="btn btn-block">
+                                                <span class="d-none d-sm-inline">Remove</span>
+                                                &#128465;
+                                            </a>
+                                        </span>
+                            </td>
+                        </tr>
+                        <tr th:remove="all">
+                            <td class="align-middle">Dill</td>
+                            <td class="align-middle">Abraham</td>
+                            <td class="align-middle">3</td>
+                            <td class="align-middle">21.02.2022</td>
+                            <td class="text-end">
+                                        <span data-bs-toggle="modal" data-bs-target="#markUpDialog" id="btnPrice"
+                                              class="d-none" data-name="Master" data-owner="Abraham">
+                                            <a href="#" class="btn btn-block">
+                                                <span class="d-none d-sm-inline">Mark up</span>
+                                                &#128400;
+                                            </a>
+                                        </span>
+                                <span data-bs-toggle="modal" data-bs-target="#deleteDialog" id="btnDelete"
+                                      class="d-none" data-name="Master" data-owner="Abraham">
+                                            <a href="#" class="btn btn-block">
+                                                <span class="d-none d-sm-inline">Remove</span>
+                                                &#128465;
+                                            </a>
+                                        </span>
+                            </td>
+                        </tr>
+                        <tr th:remove="all">
+                            <td class="align-middle">Car</td>
+                            <td class="align-middle">Tor</td>
+                            <td class="align-middle">1000</td>
+                            <td class="align-middle">25.02.2022</td>
+                            <td class="text-end">
+                                        <span data-bs-toggle="modal" data-bs-target="#markUpDialog" id="btnPrice"
+                                              class="d-none" data-name="Master" data-owner="Tor">
+                                            <a href="#" class="btn btn-block">
+                                                <span class="d-none d-sm-inline">Mark up</span>
+                                                &#128400;
+                                            </a>
+                                        </span>
+                                <span data-bs-toggle="modal" data-bs-target="#deleteDialog" id="btnDelete"
+                                      class="d-none" data-name="Master" data-owner="Tor">
+                                            <a href="#" class="btn btn-block">
+                                                <span class="d-none d-sm-inline">Remove</span>
+                                                &#128465;
+                                            </a>
+                                        </span>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <footer>
-        <hr />
-        <p class="text-center">&copy; 2021</p>
-    </footer>
+<footer>
+    <hr/>
+    <p class="text-center">&copy; 2021</p>
+</footer>
 
 
-    <div class="modal fade" id="markUpDialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
+<div class="modal fade" id="markUpDialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+            <form th:action="@{/product/update}" th:method="post">
                 <div class="modal-header">
                     <h5 class="modal-title">New price</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form class="needs-validation">
-                        <label class="form-label">Please set a new price</label>
-                        <div class="input-group has-validation">
-                            <span class="input-group-text">$</span>
-                            <input type="text" class="form-control has-invalid" id="priseInputField"
-                                aria-describedby="inputGroupPrepend" required>
-                            <div class="invalid-feedback">
-                                It's impossible
-                            </div>
-                        </div>
+                    <label class="form-label" for="priseInputField"></label>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input id="productId" name="productId" type="hidden"/>
+                        <input id="customerId" name="customerId" type="hidden"/>
+                        <input type="text" class="form-control" name="price" id="priseInputField"
+                               aria-describedby="inputGroupPrepend">
+                    </div>
 
-                    </form>
+
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <a href="#" class="btn btn-primary btn-dark" id="updatePriseUrl">Confirm</a>
+                    <button type="submit" class="btn btn-primary btn-dark" id="updatePrice">Confirm</button>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
+</div>
 
-    <div class="modal fade" id="updateDateDialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
+<div class="modal fade" id="updateDateDialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form th:action="@{/date}" th:method="post">
                 <div class="modal-header">
                     <h5 class="modal-title">New date</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
-                        <label class="form-label">Please set a new date</label>
-                        <div class="input-group">
-
-                            <input type="text" class="form-control" id="dateInputField"
-                                aria-describedby="inputGroupPrepend">
-                        </div>
-                        <div class="valid-feedback">
-                            Looks good!
-                        </div>
-                    </form>
+                    <label class="form-label">Please set a new date</label>
+                    <div class="input-group">
+                        <input type="date" name="date" class="form-control" id="dateInputField"
+                               aria-describedby="inputGroupPrepend">
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <a href="#" class="btn btn-primary btn-dark" id="checkDate">Confirm</a>
+                    <button type="submit" class="btn btn-primary btn-dark" id="checkDate">Confirm</button>
                 </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteDialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete lot</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Please confirm delete
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <a id="deleteUrl" href="#" class="btn btn-danger">Delete</a>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="modal fade" id="deleteDialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Delete lot</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Please confirm delete
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <a id="deleteUrl" href="#" class="btn btn-danger">Delete</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <script src="../../resources/static/js/bootstrap.bundle.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
-    <script src="../../resources/static/js/jquery-3.4.1.slim.min.js" th:src="@{/js/jquery-3.4.1.slim.min.js}"></script>
-    <script>
+<script src="../../resources/static/js/bootstrap.bundle.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script src="../../resources/static/js/jquery-3.4.1.slim.min.js" th:src="@{/js/jquery-3.4.1.slim.min.js}"></script>
+<script>
+
+
         $(document).ready(function () {
-            var currentDate = document.getElementById("currentDate")
-            var d = new Date();
-            var strDate = d.getDate() + "." + (d.getMonth() + 1) + "." + d.getFullYear();
-            currentDate.innerHTML = strDate
             $("[id=btnPrice]").each(function () {
                 if ($(this).data('owner') != $(this).data('name')) {
                     $(this).removeClass('d-none')
-
                 }
             });
             $("[id=btnDelete]").each(function () {
@@ -316,44 +316,71 @@
             });
         });
 
-        $("#checkSortByDateDate").click(function (event) {
+        $("#checkSortByDate").click(function (event) {
             let dateField1 = document.getElementById("dateInputField1")
             let dateField2 = document.getElementById("dateInputField2")
-            let data1 = dateField1.value.split(".")
-            let data2 = dateField2.value.split(".")
-            if (Date.parse(data1[2] + '-' + data1[1] + '-' + data1[0]) < Date.parse(data2[2] + '-' + data2[1] + '-' + data2[0])) {
+            let data1 = dateField1.value.split("-")
+            let data2 = dateField2.value.split("-")
+            if (Date.parse(data1[0] + '-' + data1[1] + '-' + data1[2]) <= Date.parse(data2[0] + '-' + data2[1] + '-' + data2[2])) {
                 dateField1.classList.remove('is-invalid')
                 dateField2.classList.remove('is-invalid')
-                document.activeElement.href = '/sort/with/' + data1[2] + "-" + data1[1] + "-" + data1[0] + '/by/' + data2[2] + "-" + data2[1] + "-" + data2[0]
             } else {
                 dateField1.classList.add('is-invalid')
                 dateField2.classList.add('is-invalid')
+                event.preventDefault()
+                event.stopPropagation()
             }
         })
         $("#checkDate").click(function (event) {
             let dateField = document.getElementById("dateInputField")
-            let arrayData = dateField.value.split(".")
-            if (arrayData[0] <= 31 && arrayData[1] <= 12) {
+            let data = dateField.value.split("-")
+            if (!isNaN(Date.parse(data[0] + '-' + data[1] + '-' + data[2]))) {
                 dateField.classList.remove('is-invalid')
-                document.activeElement.href = '/date/' + arrayData[2] + "-" + arrayData[1] + "-" + arrayData[0]
             } else {
-
                 dateField.classList.add('is-invalid')
+                event.preventDefault()
+                event.stopPropagation()
             }
         })
-        $("#updatePriseUrl").click(function (event) {
-            let target = $(event.relatedTarget)
-            let priceField = document.getElementById("priseInputField")
-            document.activeElement.href = '/product/' + target.data('id') + '/prise/' + priceField.value
-        })
 
+        $('#markUpDialog').on('show.bs.modal', function (event) {
+            var target = $(event.relatedTarget)
+            $("label[for=priseInputField]").html('Please set a new price for the lot: "' + target.data('product_name') + '"');
+            $('#productId').val(target.data('product_id'))
+            $('#priseInputField').val(target.data('product_price'))
+            $('#customerId').val(target.data('customer_id'))
+            $('#updatePrice').bind('click', function (event) {
+                priceField = $('#priseInputField')
+                if (priceField.val() > target.data('product_price')) {
+                    priceField.removeClass("is-invalid")
+                } else {
+                    priceField.addClass("is-invalid")
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+            })
+
+        })
 
         $('#deleteDialog').on('show.bs.modal', function (event) {
             var target = $(event.relatedTarget)
-            $(this).find('.modal-body').text('Please confirm delete lot: "' + target.data('productName') + '"')
-            document.getElementById('deleteUrl').href = '/product/' + target.data('id') + '/delete';
+            $(this).find('.modal-body').text('Please confirm delete lot: "' + target.data('product_name') + '"')
+            $('#deleteUrl').attr("href", '/product/' + target.data('product_id') + '/delete');
         })
-    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
 
 </body>
 
