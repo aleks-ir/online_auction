@@ -83,26 +83,30 @@
                                         &#60; <span class="d-none d-sm-inline ">Sort by date</span>
                                     </a>
                                     <div class="dropdown-menu ">
-                                        <form method="GET" action="/auction" id="formSortByDate">
-                                            <div class="d-grid pb-3  gap-2 col-6 mx-auto ">
-                                                <button type="submit" class="btn btn-dark btn-sm"
-                                                        id="checkSortByDate">Sort
-                                                </button>
-                                            </div>
+                                        <form method="GET" action="/auction/sort" id="formSortByDate">
 
                                             <div class="px-2 pb-3">
                                                 <span class="input-group-text">From</span>
-                                                <input type="date" class="form-control has-invalid"
-                                                       id="dateInputField1" name="startDate" placeholder="From"
+                                                <input type="text" class="form-control has-invalid"
+                                                       id="dateInputField1" name="startDate"
+                                                       placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"
+                                                       pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
                                                        aria-describedby="inputGroupPrepend">
 
                                             </div>
 
                                             <div class="px-2 pb-3">
                                                 <span class="input-group-text">By</span>
-                                                <input type="date" class="form-control has-invalid"
-                                                       id="dateInputField2" name="endDate" placeholder="By"
+                                                <input type="text" class="form-control has-invalid"
+                                                       id="dateInputField2" name="endDate" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"
+                                                       pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
                                                        aria-describedby="inputGroupPrepend">
+                                            </div>
+
+                                            <div class="d-grid pb-3  gap-2 col-6 mx-auto ">
+                                                <button type="submit" class="btn btn-dark btn-sm"
+                                                        id="checkSortByDate">Sort
+                                                </button>
                                             </div>
 
                                         </form>
@@ -118,16 +122,16 @@
                             <td class="align-middle" th:text="${product.productPrice}">100</td>
                             <td class="align-middle" th:text="${product.productDate}">23.02.2022</td>
                             <td class="text-end">
-                                        <span data-bs-toggle="modal" data-bs-target="#markUpDialog" id="btnPrice"
-                                              class="d-none" data-name="Master" data-owner="Abraham"
+                                        <span data-bs-toggle="modal" data-bs-target="#markUpDialog"
+                                              class="d-none btnPrice" data-name="Master" data-owner="Abraham"
                                               th:attr="data-product_id=${product.productId},data-product_name=${product.productName},data-product_price=${product.productPrice},data-customer_id=*{userId},data-name=*{userName},data-owner=${product.nameOwner}">
                                             <a href="#" class="btn btn-block">
                                                 <span class="d-none d-sm-inline">Mark up</span>
                                                 &#128400;
                                             </a>
                                         </span>
-                                <span data-bs-toggle="modal" data-bs-target="#deleteDialog" id="btnDelete"
-                                      class="d-none" data-name="Master" data-owner="Abraham"
+                                <span data-bs-toggle="modal" data-bs-target="#deleteDialog"
+                                      class="d-none btnDelete" data-name="Master" data-owner="Abraham"
                                       th:attr="data-product_id=${product.productId},data-product_name=${product.productName},data-name=*{userName},data-owner=${product.nameOwner}">
                                             <a href="#" class="btn btn-block">
                                                 <span class="d-none d-sm-inline">Remove</span>
@@ -144,15 +148,15 @@
                             <td class="align-middle">200</td>
                             <td class="align-middle">07.02.2022</td>
                             <td class="text-end">
-                                        <span data-bs-toggle="modal" data-bs-target="#markUpDialog" id="btnPrice"
-                                              class="d-none" data-name="Master" data-owner="Master">
+                                        <span data-bs-toggle="modal" data-bs-target="#markUpDialog"
+                                              class="d-none btnPrice" data-name="Master" data-owner="Master">
                                             <a href="#" class="btn btn-block">
                                                 <span class="d-none d-sm-inline">Mark up</span>
                                                 &#128400;
                                             </a>
                                         </span>
                                 <span data-bs-toggle="modal" data-bs-target="#deleteDialog" id="btnDelete"
-                                      class="d-none" data-name="Master" data-owner="Master">
+                                      class="d-none btnDelete" data-name="Master" data-owner="Master">
                                             <a href="#" class="btn btn-block">
                                                 <span class="d-none d-sm-inline">Remove</span>
                                                 &#128465;
@@ -166,15 +170,15 @@
                             <td class="align-middle">3</td>
                             <td class="align-middle">21.02.2022</td>
                             <td class="text-end">
-                                        <span data-bs-toggle="modal" data-bs-target="#markUpDialog" id="btnPrice"
-                                              class="d-none" data-name="Master" data-owner="Abraham">
+                                        <span data-bs-toggle="modal" data-bs-target="#markUpDialog"
+                                              class="d-none btnPrice" data-name="Master" data-owner="Abraham">
                                             <a href="#" class="btn btn-block">
                                                 <span class="d-none d-sm-inline">Mark up</span>
                                                 &#128400;
                                             </a>
                                         </span>
-                                <span data-bs-toggle="modal" data-bs-target="#deleteDialog" id="btnDelete"
-                                      class="d-none" data-name="Master" data-owner="Abraham">
+                                <span data-bs-toggle="modal" data-bs-target="#deleteDialog"
+                                      class="d-none btnDelete" data-name="Master" data-owner="Abraham">
                                             <a href="#" class="btn btn-block">
                                                 <span class="d-none d-sm-inline">Remove</span>
                                                 &#128465;
@@ -188,15 +192,15 @@
                             <td class="align-middle">1000</td>
                             <td class="align-middle">25.02.2022</td>
                             <td class="text-end">
-                                        <span data-bs-toggle="modal" data-bs-target="#markUpDialog" id="btnPrice"
-                                              class="d-none" data-name="Master" data-owner="Tor">
+                                        <span data-bs-toggle="modal" data-bs-target="#markUpDialog"
+                                              class="d-none btnPrice" data-name="Master" data-owner="Tor">
                                             <a href="#" class="btn btn-block">
                                                 <span class="d-none d-sm-inline">Mark up</span>
                                                 &#128400;
                                             </a>
                                         </span>
-                                <span data-bs-toggle="modal" data-bs-target="#deleteDialog" id="btnDelete"
-                                      class="d-none" data-name="Master" data-owner="Tor">
+                                <span data-bs-toggle="modal" data-bs-target="#deleteDialog"
+                                      class="d-none btnDelete" data-name="Master" data-owner="Tor">
                                             <a href="#" class="btn btn-block">
                                                 <span class="d-none d-sm-inline">Remove</span>
                                                 &#128465;
@@ -239,6 +243,7 @@
                         <input type="text" class="form-control" name="price" id="priseInputField"
                                aria-describedby="inputGroupPrepend">
                     </div>
+                    <div style="color:red" id="errorPrice" class="d-none">Please enter correct price</div>
 
 
                 </div>
@@ -265,13 +270,14 @@
                 <div class="modal-body">
                     <label class="form-label">Please set a new date</label>
                     <div class="input-group">
-                        <input type="date" name="date" class="form-control" id="dateInputField"
+                        <input type="text" name="date" class="form-control" id="dateInputField" placeholder="YYYY-MM-DD"
                                aria-describedby="inputGroupPrepend">
                     </div>
+                    <div style="color:red" id="errorDate" class="d-none">Enter a date in this format: YYYY-MM-DD</div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary btn-dark" id="checkDate">Confirm</button>
+                    <button type="submit" class="btn btn-primary btn-dark" id="checkDate" >Confirm</button>
                 </div>
             </form>
         </div>
@@ -302,44 +308,29 @@
 <script src="../../resources/static/js/jquery-3.4.1.slim.min.js" th:src="@{/js/jquery-3.4.1.slim.min.js}"></script>
 <script>
 
-
         $(document).ready(function () {
-            $("[id=btnPrice]").each(function () {
+            $(".btnPrice").each(function () {
                 if ($(this).data('owner') != $(this).data('name')) {
                     $(this).removeClass('d-none')
                 }
             });
-            $("[id=btnDelete]").each(function () {
+            $(".btnDelete").each(function () {
                 if ($(this).data('owner') == $(this).data('name')) {
                     $(this).removeClass('d-none')
                 }
             });
         });
 
-        $("#checkSortByDate").click(function (event) {
-            let dateField1 = document.getElementById("dateInputField1")
-            let dateField2 = document.getElementById("dateInputField2")
-            let data1 = dateField1.value.split("-")
-            let data2 = dateField2.value.split("-")
-            if (Date.parse(data1[0] + '-' + data1[1] + '-' + data1[2]) <= Date.parse(data2[0] + '-' + data2[1] + '-' + data2[2])) {
-                dateField1.classList.remove('is-invalid')
-                dateField2.classList.remove('is-invalid')
-            } else {
-                dateField1.classList.add('is-invalid')
-                dateField2.classList.add('is-invalid')
-                event.preventDefault()
-                event.stopPropagation()
-            }
-        })
         $("#checkDate").click(function (event) {
-            let dateField = document.getElementById("dateInputField")
-            let data = dateField.value.split("-")
-            if (!isNaN(Date.parse(data[0] + '-' + data[1] + '-' + data[2]))) {
-                dateField.classList.remove('is-invalid')
+            let dateField = $('#dateInputField')
+            let errorDate = $('#errorDate')
+            let regex = new RegExp("(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))");
+            if (regex.test(dateField.val())) {
+                errorDate.addClass('d-none')
             } else {
-                dateField.classList.add('is-invalid')
-                event.preventDefault()
-                event.stopPropagation()
+                errorDate.removeClass('d-none')
+                    event.preventDefault()
+                    event.stopPropagation()
             }
         })
 
@@ -349,12 +340,13 @@
             $('#productId').val(target.data('product_id'))
             $('#priseInputField').val(target.data('product_price'))
             $('#customerId').val(target.data('customer_id'))
+            let errorPrice = $('#errorPrice')
             $('#updatePrice').bind('click', function (event) {
                 priceField = $('#priseInputField')
                 if (priceField.val() > target.data('product_price')) {
-                    priceField.removeClass("is-invalid")
+                    errorPrice.addClass('d-none')
                 } else {
-                    priceField.addClass("is-invalid")
+                    errorPrice.removeClass('d-none')
                     event.preventDefault()
                     event.stopPropagation()
                 }
@@ -367,15 +359,6 @@
             $(this).find('.modal-body').text('Please confirm delete lot: "' + target.data('product_name') + '"')
             $('#deleteUrl').attr("href", '/product/' + target.data('product_id') + '/delete');
         })
-
-
-
-
-
-
-
-
-
 
 
 

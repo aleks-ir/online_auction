@@ -5,8 +5,11 @@ import com.tisserand.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.validation.Valid;
 
 @Controller
 public class UserAccountController {
@@ -34,9 +37,11 @@ public class UserAccountController {
 
 
     @PostMapping(value = "/edit_user")
-    public String updateUser(User user) {
+    public String updateUser(@Valid User user, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            return "edit_user";
+        }
         userService.update(user);
         return "redirect:/user_account";
     }
-
 }

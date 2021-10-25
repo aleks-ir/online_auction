@@ -65,26 +65,28 @@
                                   th:method="post">
 
                                 <div class="mb-3">
-                                    <label class="form-label" for="name">Lot name</label>
-                                    <input class="form-control" id="name" type="text"
+                                    <label class="form-label" for="nameInputField">Lot name</label>
+                                    <input class="form-control" id="nameInputField" type="text"
                                         value="Siberian cat" th:field="*{productName}"/>
+                                    <div style="color:red" th:if="${#fields.hasErrors('productName')}" th:errors="*{productName}">Name error</div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="price">Prise</label>
-                                    <input class="form-control" id="price" type="text"
+                                    <label class="form-label" for="priceInputField">Prise</label>
+                                    <input class="form-control" id="priceInputField" type="text"
                                     value="100" th:field="*{productPrice}"/>
+                                    <div style="color:red" th:if="${#fields.hasErrors('productPrice')}" th:errors="*{productPrice}">Name error</div>
                                     
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="closing_date">Closing date</label>
-                                    <input class="form-control" id="closing_date" type="text"
-                                        value="01.01.2022" th:field="*{productDate}"/>
+                                    <label class="form-label" for="dateInputField">Closing date</label>
+                                    <input type="text" class="form-control" id="dateInputField" th:field="*{productDate}" placeholder="YYYY-MM-DD"/>
+                                    <div style="color:red" class="d-none" id="errorDate">Enter a date in this format: YYYY-MM-DD</div>
                                 </div>
                                 <div class="d-flex justify-content-end">
                                     <a href="auction.html" th:href="@{/auction}" class="btn btn-light me-1"
                                         title="Cancel">Cancel</a>
                                     <button type="submit"
-                                       class="btn btn-primary btn-dark"
+                                       class="btn btn-primary btn-dark" id="validator"
                                         title="Add lot">Add</button>
                                 </div>
                             </form>
@@ -101,6 +103,21 @@
     </footer>
 
     <script src="../../resources/static/js/bootstrap.bundle.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script src="../../resources/static/js/jquery-3.4.1.slim.min.js" th:src="@{/js/jquery-3.4.1.slim.min.js}"></script>
+    <script>
+        $("#validator").click(function (event) {
+            let dateField = $('#dateInputField')
+            let errorDate = $('#errorDate')
+            let regex = new RegExp("(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))");
+            if (regex.test(dateField.val())) {
+                errorDate.addClass('d-none')
+            } else {
+                errorDate.removeClass('d-none')
+                    event.preventDefault()
+                    event.stopPropagation()
+            }
+        })
+    </script>
 </body>
 
 </html>

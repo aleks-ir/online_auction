@@ -4,6 +4,7 @@ import com.tisserand.dao.PaymentDao;
 import com.tisserand.dao.ProductDao;
 import com.tisserand.dao.UserDao;
 import com.tisserand.model.Product;
+import com.tisserand.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,8 +40,26 @@ public class PaymentService {
         for (Product product : products) {
             if(checkProductOnAccountability(product)){
                 paymentDao.payment(product);
+            }else {
+                paymentDao.refund(product);
             }
             productDao.delete(product.getProductId());
         }
     }
+
+    public void withdraw(Product product) {
+        Integer userId = product.getSalesmanId();
+        User user = userDao.findById(userId).get();
+        if(user.getUserMoney() > product.getProductPrice()){
+            paymentDao.withdraw(product);
+        }else throw new SecurityException("Not enough money in the account");
+    }
+
+    public void refund(Product product) {
+        paymentDao.refund(product);
+    }
+
+
+
+
 }

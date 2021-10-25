@@ -1,6 +1,26 @@
 package com.tisserand.model.dto;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.*;
+
 public class ProductDto {
+
+    @Positive(message = "Id id should be positive")
+    private Integer productId;
+
+    @NotBlank(message = "Name should not be empty")
+    @Size(min = 1, max = 30, message = "Product name should be between 1 and 30 characters")
+    private String productName;
+
+    @NotNull(message = "Prise should not be empty")
+    @Min(value = 0, message = "Price should be greater than zero")
+    private Float productPrice;
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private String productDate;
+
+    private String nameOwner;
 
     public Integer getProductId() {
         return productId;
@@ -52,14 +72,4 @@ public class ProductDto {
                 ", nameOwner='" + nameOwner + '\'' +
                 '}';
     }
-
-    private Integer productId;
-
-    private String productName;
-
-    private Float productPrice;
-
-    private String productDate;
-
-    private String nameOwner;
 }

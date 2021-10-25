@@ -1,5 +1,6 @@
 package com.tisserand.service.impl;
 
+import com.tisserand.dao.PaymentDao;
 import com.tisserand.dao.ProductDao;
 import com.tisserand.model.Product;
 import com.tisserand.service.ProductService;
@@ -15,10 +16,12 @@ import java.util.Optional;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductDao productDao;
+    private final PaymentService paymentService;
 
     @Autowired
-    public ProductServiceImpl(ProductDao productDao) {
+    public ProductServiceImpl(ProductDao productDao, PaymentService paymentService) {
         this.productDao = productDao;
+        this.paymentService = paymentService;
     }
 
 
@@ -34,11 +37,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Integer create(Product product) {
+        paymentService.withdraw(product);
         return productDao.create(product);
     }
 
     @Override
     public Integer delete(Integer productId) {
+        paymentService.refund(findById(productId).get());
         return productDao.delete(productId);
     }
 
@@ -54,6 +59,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Integer updatePriceAndCustomer(Product product) {
-        return productDao.updatePriceAndCustomer(product);
+        Float oldProductPrice = findById(product.getProductId()).get().getProductPrice();
+        Float newProductPrice = product.getProductPrice();
+        if(newProductPrice > oldProductPrice){
+            return productDao.updatePriceAndCustomer(product);
+        }
+        else throw new SecurityException("Incorrect price");
     }
 }

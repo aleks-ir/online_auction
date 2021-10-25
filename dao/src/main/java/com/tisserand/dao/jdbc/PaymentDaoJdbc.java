@@ -43,10 +43,34 @@ public class PaymentDaoJdbc implements PaymentDao, InitializingBean {
         SqlParameterSource sqlParameterSourcePutMoney =
                 new MapSqlParameterSource("USER_ID", product.getSalesmanId())
                         .addValue("VALUE", product.getProductPrice());
+
         SqlParameterSource sqlParameterSourceTakeMoney =
                 new MapSqlParameterSource("USER_ID", product.getCustomerId())
                         .addValue("VALUE", product.getProductPrice());
+
         template.update(putMoneySql, sqlParameterSourcePutMoney);
+        template.update(takeMoneySql, sqlParameterSourceTakeMoney);
+    }
+
+
+    @Transactional
+    @Override
+    public void refund(Product product) {
+        SqlParameterSource sqlParameterSourcePutMoney =
+                new MapSqlParameterSource("USER_ID", product.getSalesmanId())
+                        .addValue("VALUE", product.getProductPrice());
+
+        template.update(putMoneySql, sqlParameterSourcePutMoney);
+    }
+
+
+    @Transactional
+    @Override
+    public void withdraw(Product product) {
+        SqlParameterSource sqlParameterSourceTakeMoney =
+                new MapSqlParameterSource("USER_ID", product.getSalesmanId())
+                        .addValue("VALUE", product.getProductPrice());
+
         template.update(takeMoneySql, sqlParameterSourceTakeMoney);
     }
 }

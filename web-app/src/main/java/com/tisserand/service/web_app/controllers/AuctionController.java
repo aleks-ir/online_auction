@@ -10,8 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import java.util.List;
 
 
@@ -37,32 +40,25 @@ public class AuctionController {
         this.dateService = dateService;
     }
 
-    @GetMapping(value = "/auction")
-    public String findAll(@RequestParam(name = "startDate", required = false)
-                          @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-                                  String startDate,
-                          @RequestParam(name = "endDate", required = false)
-                          @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-                                  String endDate,
+    @GetMapping(value = "/auction/sort")
+    public String findAllWithSortByDate(@RequestParam(name = "startDate", required = false) String startDate,
+                          @RequestParam(name = "endDate", required = false) String endDate,
                           Model model) {
-
-
-
-        List<ProductDto> resultList;
-        boolean sortByDate = false;
-        if(startDate!=null && endDate!=null) {
-            if(startDate.length()!=0 && endDate.length()!=0) {
-                sortByDate = true;
-            }
+        if(startDate == ""){
+            startDate = "1100-01-01";
+        }else if(endDate == ""){
+            endDate = "2100-01-01";
         }
-        if(sortByDate){
-            resultList = productDtoService.findAllProductWithNameOwnerByDate(startDate, endDate);
-        }else {
-            resultList = productDtoService.findAllProductWithNameOwner();
-        }
-
         model.addAttribute("user", userService.findById(testUserId).get());
-        model.addAttribute("products", resultList);
+        model.addAttribute("products", productDtoService.findAllProductWithNameOwnerByDate(startDate, endDate));
+        model.addAttribute("date", dateService.getDate());
+        return "auction";
+    }
+
+    @GetMapping(value = "/auction")
+    public String findAll(Model model) {
+        model.addAttribute("user", userService.findById(testUserId).get());
+        model.addAttribute("products", productDtoService.findAllProductWithNameOwner());
         model.addAttribute("date", dateService.getDate());
         return "auction";
     }
@@ -77,14 +73,19 @@ public class AuctionController {
     }
 
     @PostMapping(value = "/add_product")
-    public String addProduct(Product product) {
+    public String addProduct(@Valid Product product, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            return "add_product";
+        }
         product.setSalesmanId(testUserId);
         productService.create(product);
         return "redirect:/auction";
     }
 
     @PostMapping(value = "/product/update")
-    public String updatePriceAndCustomer(@RequestParam(name = "productId") Integer productId, @RequestParam(name = "price") Float price, @RequestParam(name = "customerId") Integer customerId) {
+    public String updatePriceAndCustomer(@RequestParam(name = "productId") Integer productId,
+                                         @RequestParam(name = "price") Float price,
+                                         @RequestParam(name = "customerId") Integer customerId) {
         Product product = new Product();
         product.setProductId(productId);
         product.setProductPrice(price);
@@ -95,13 +96,13 @@ public class AuctionController {
 
 
     @PostMapping(value = "/date")
-    public String updateDate(@RequestParam(name = "date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) String date) {
+    public String updateDate(@RequestParam(name = "date") String date) {
         this.dateService.update(date);
         return "redirect:/auction";
     }
 
     @GetMapping(value = "/product/{id}/delete")
-    public final String deleteDepartmentById(@PathVariable Integer id) {
+    public final String deleteProductById(@PathVariable Integer id) {
         productService.delete(id);
         return "redirect:/auction";
     }

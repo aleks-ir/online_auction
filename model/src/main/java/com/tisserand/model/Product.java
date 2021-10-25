@@ -1,18 +1,29 @@
 package com.tisserand.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.*;
 import java.util.Objects;
 
 public class Product {
 
-
+    @Positive(message = "Id id should be positive")
     private Integer productId;
 
+    @NotBlank(message = "Name should not be empty")
+    @Size(min = 1, max = 30, message = "Name should be between 1 and 30 characters")
     private String productName;
 
+    @NotNull(message = "Prise should not be empty")
+    @Min(value = 0, message = "Price should be greater than zero")
     private Float productPrice;
+
+    @NotBlank(message = "Date should not be empty")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 
     private String productDate;
 
+    @Positive(message = "Salesman id should be positive")
     private Integer salesmanId;
 
     private Integer customerId;

@@ -4,13 +4,17 @@ import com.tisserand.model.Product;
 import com.tisserand.service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import java.util.Collection;
 import java.util.Optional;
 
 @CrossOrigin
 @RestController
+@Validated
 public class ProductController {
 
     private ProductService productService;
@@ -25,7 +29,7 @@ public class ProductController {
     }
 
     @GetMapping(value = "/products/{id}")
-    public ResponseEntity<Product> findById(@PathVariable Integer id) {
+    public ResponseEntity<Product> findById(@PathVariable @Positive(message = "Path variable should be positive") Integer id) {
         Optional<Product> optional = productService.findById(id);
         return optional.isPresent()
                 ? new ResponseEntity<>(optional.get(), HttpStatus.OK)
@@ -33,7 +37,7 @@ public class ProductController {
     }
 
     @PostMapping(value = "/products", consumes = {"application/json"}, produces = {"application/json"})
-    public ResponseEntity<Integer> createProduct(@RequestBody Product product) {
+    public ResponseEntity<Integer> createProduct(@Valid  @RequestBody Product product) {
         Integer id = productService.create(product);
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
@@ -45,7 +49,7 @@ public class ProductController {
     }
 
     @DeleteMapping(value = "/products/{id}", produces = {"application/json"})
-    public ResponseEntity<Integer> deleteProduct(@PathVariable Integer id) {
+    public ResponseEntity<Integer> deleteProduct(@PathVariable @Positive(message = "Path variable should be positive") Integer id) {
         Integer result = productService.delete(id);
         return result > 0
                 ? new ResponseEntity<>(result, HttpStatus.OK)

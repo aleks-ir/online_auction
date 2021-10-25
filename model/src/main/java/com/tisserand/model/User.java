@@ -1,15 +1,24 @@
 package com.tisserand.model;
 
+import javax.validation.constraints.*;
 import java.util.Objects;
 
 public class User {
 
+    @Positive(message = "User id should be positive")
     private Integer userId;
 
+    @NotBlank(message = "Name should not be empty")
+    @Size(min = 1, max = 30, message = "Name should be between 1 and 30 characters")
     private String userName;
 
+    @Email(message = "Invalid email")
+    @NotBlank(message = "Email should not be empty")
+    @Size(min = 1, max = 30, message = "Email should be between 1 and 30 characters")
     private String userEmail;
 
+    @NotNull(message = "Money should not be empty")
+    @Min(value = 0, message = "Money should be greater than zero")
     private Float userMoney;
 
     public User(String userName, String userEmail, Float userMoney) {

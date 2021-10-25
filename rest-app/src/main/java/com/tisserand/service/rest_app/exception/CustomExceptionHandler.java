@@ -34,4 +34,11 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.UNPROCESSABLE_ENTITY);
     }
+
+    @ExceptionHandler(SecurityException.class)
+    public ResponseEntity<Object> handleSecurityException(SecurityException e) {
+        ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.FORBIDDEN);
+    }
+
 }
