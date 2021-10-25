@@ -6,6 +6,8 @@ import com.tisserand.service.DateService;
 import com.tisserand.service.dto.ProductDtoService;
 import com.tisserand.service.ProductService;
 import com.tisserand.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,8 @@ import java.util.List;
 
 @Controller
 public class AuctionController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuctionController.class);
 
     private final ProductDtoService productDtoService;
 
@@ -44,6 +48,7 @@ public class AuctionController {
     public String findAllWithSortByDate(@RequestParam(name = "startDate", required = false) String startDate,
                           @RequestParam(name = "endDate", required = false) String endDate,
                           Model model) {
+        LOGGER.debug("AuctionController: findAllWithSortByDate({} {})", startDate, endDate);
         if(startDate == ""){
             startDate = "1100-01-01";
         }else if(endDate == ""){
@@ -57,6 +62,7 @@ public class AuctionController {
 
     @GetMapping(value = "/auction")
     public String findAll(Model model) {
+        LOGGER.debug("AuctionController: findAll()");
         model.addAttribute("user", userService.findById(testUserId).get());
         model.addAttribute("products", productDtoService.findAllProductWithNameOwner());
         model.addAttribute("date", dateService.getDate());
@@ -67,6 +73,7 @@ public class AuctionController {
 
     @GetMapping(value = "/add_product")
     public final String gotoAddProductPage(Model model) {
+        LOGGER.debug("AuctionController: gotoAddProductPage()");
         model.addAttribute("isNew", true);
         model.addAttribute("product", new Product());
         return "add_product";
@@ -74,6 +81,7 @@ public class AuctionController {
 
     @PostMapping(value = "/add_product")
     public String addProduct(@Valid Product product, BindingResult bindingResult) {
+        LOGGER.debug("AuctionController: addProduct({})", product);
         if(bindingResult.hasErrors()){
             return "add_product";
         }
@@ -86,6 +94,7 @@ public class AuctionController {
     public String updatePriceAndCustomer(@RequestParam(name = "productId") Integer productId,
                                          @RequestParam(name = "price") Float price,
                                          @RequestParam(name = "customerId") Integer customerId) {
+        LOGGER.debug("AuctionController: updatePriceAndCustomer({} {} {})", productId, price, customerId);
         Product product = new Product();
         product.setProductId(productId);
         product.setProductPrice(price);
@@ -97,12 +106,14 @@ public class AuctionController {
 
     @PostMapping(value = "/date")
     public String updateDate(@RequestParam(name = "date") String date) {
+        LOGGER.debug("AuctionController: updateDate({})", date);
         this.dateService.update(date);
         return "redirect:/auction";
     }
 
     @GetMapping(value = "/product/{id}/delete")
     public final String deleteProductById(@PathVariable Integer id) {
+        LOGGER.debug("AuctionController: deleteProductById({})", id);
         productService.delete(id);
         return "redirect:/auction";
     }

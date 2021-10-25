@@ -2,6 +2,8 @@ package com.tisserand.service.rest_app.controllers;
 
 import com.tisserand.model.Product;
 import com.tisserand.service.ProductService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -17,6 +19,8 @@ import java.util.Optional;
 @Validated
 public class ProductController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
+
     private ProductService productService;
 
     public ProductController(ProductService productService) {
@@ -25,11 +29,13 @@ public class ProductController {
 
     @GetMapping(value = "/products")
     public Collection<Product> products() {
+        LOGGER.debug("ProductController: findById()");
         return productService.findAll();
     }
 
     @GetMapping(value = "/products/{id}")
     public ResponseEntity<Product> findById(@PathVariable @Positive(message = "Path variable should be positive") Integer id) {
+        LOGGER.debug("ProductController: findById({})", id);
         Optional<Product> optional = productService.findById(id);
         return optional.isPresent()
                 ? new ResponseEntity<>(optional.get(), HttpStatus.OK)
@@ -38,18 +44,21 @@ public class ProductController {
 
     @PostMapping(value = "/products", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<Integer> createProduct(@Valid  @RequestBody Product product) {
+        LOGGER.debug("ProductController: createProduct({})", product);
         Integer id = productService.create(product);
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/products", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<Integer> updatePriceAndCustomer(@RequestBody Product product) {
+        LOGGER.debug("ProductController: updatePriceAndCustomer({})", product);
         Integer id = productService.updatePriceAndCustomer(product);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/products/{id}", produces = {"application/json"})
     public ResponseEntity<Integer> deleteProduct(@PathVariable @Positive(message = "Path variable should be positive") Integer id) {
+        LOGGER.debug("ProductController: deleteProduct({})", id);
         Integer result = productService.delete(id);
         return result > 0
                 ? new ResponseEntity<>(result, HttpStatus.OK)

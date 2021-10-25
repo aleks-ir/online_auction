@@ -2,6 +2,8 @@ package com.tisserand.service.rest_app.controllers;
 
 import com.tisserand.model.User;
 import com.tisserand.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -16,6 +18,9 @@ import java.util.Optional;
 @RestController
 @Validated
 public class UserController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+
     private UserService userService;
 
     public UserController(UserService userService) {
@@ -24,11 +29,13 @@ public class UserController {
 
     @GetMapping(value = "/users")
     public Collection<User> users() {
+        LOGGER.debug("UserController: users()");
         return userService.findAll();
     }
 
     @GetMapping(value = "/users/{id}")
     public ResponseEntity<User> findById(@PathVariable @Positive(message = "Path variable should be positive") Integer id) {
+        LOGGER.debug("UserController: findById({})", id);
         Optional<User> optional = userService.findById(id);
         return optional.isPresent()
                 ? new ResponseEntity<>(optional.get(), HttpStatus.OK)
@@ -37,6 +44,7 @@ public class UserController {
 
     @PutMapping(value = "/users", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<Integer> update(@Valid @RequestBody User user) {
+        LOGGER.debug("UserController: update({})", user);
         Integer id = userService.update(user);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }

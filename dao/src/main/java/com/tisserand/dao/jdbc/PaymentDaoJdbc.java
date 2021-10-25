@@ -2,6 +2,8 @@ package com.tisserand.dao.jdbc;
 
 import com.tisserand.dao.PaymentDao;
 import com.tisserand.model.Product;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,12 +25,14 @@ public class PaymentDaoJdbc implements PaymentDao, InitializingBean {
     @Value("${user.putMoney}")
     private String putMoneySql;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(PaymentDaoJdbc.class);
 
     private NamedParameterJdbcTemplate template;
 
     @Override
     public void afterPropertiesSet() {
         if (template == null) {
+            LOGGER.error("NamedParameterJdbcTemplate was not injected");
             throw new BeanCreationException("NamedParameterJdbcTemplate is null on JdbcDepartmentDAO");
         }
     }
@@ -40,6 +44,7 @@ public class PaymentDaoJdbc implements PaymentDao, InitializingBean {
     @Transactional
     @Override
     public void payment(Product product) {
+        LOGGER.debug("PaymentDaoJdbc: payment({})", product);
         SqlParameterSource sqlParameterSourcePutMoney =
                 new MapSqlParameterSource("USER_ID", product.getSalesmanId())
                         .addValue("VALUE", product.getProductPrice());
@@ -56,6 +61,7 @@ public class PaymentDaoJdbc implements PaymentDao, InitializingBean {
     @Transactional
     @Override
     public void refund(Product product) {
+        LOGGER.debug("PaymentDaoJdbc: refund({})", product);
         SqlParameterSource sqlParameterSourcePutMoney =
                 new MapSqlParameterSource("USER_ID", product.getSalesmanId())
                         .addValue("VALUE", product.getProductPrice());
@@ -67,6 +73,7 @@ public class PaymentDaoJdbc implements PaymentDao, InitializingBean {
     @Transactional
     @Override
     public void withdraw(Product product) {
+        LOGGER.debug("PaymentDaoJdbc: withdraw({})", product);
         SqlParameterSource sqlParameterSourceTakeMoney =
                 new MapSqlParameterSource("USER_ID", product.getSalesmanId())
                         .addValue("VALUE", product.getProductPrice());

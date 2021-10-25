@@ -2,6 +2,8 @@ package com.tisserand.dao.jdbc;
 
 import com.tisserand.dao.UserDao;
 import com.tisserand.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,6 +36,8 @@ public class UserDaoJdbc implements UserDao, InitializingBean {
     @Value("${user.count}")
     private String countSql;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserDaoJdbc.class);
+
     private NamedParameterJdbcTemplate template;
 
     private RowMapper rowMapper = BeanPropertyRowMapper.newInstance(User.class);
@@ -46,17 +50,20 @@ public class UserDaoJdbc implements UserDao, InitializingBean {
     @Override
     public void afterPropertiesSet() {
         if (template == null){
+            LOGGER.error("NamedParameterJdbcTemplate was not injected");
             throw new BeanCreationException("NamedParameterJdbcTemplate is null on JdbcDepartmentDAO");}
     }
 
     @Override
     public List<User> findAll() {
+        LOGGER.debug("UserDaoJdbc: findAll()");
         return template.query(selectSql, rowMapper);
     }
 
     @Override
-    public Optional<User> findById(Integer departmentId) {
-        SqlParameterSource sqlParameterSource = new MapSqlParameterSource("USER_ID", departmentId);
+    public Optional<User> findById(Integer userId) {
+        LOGGER.debug("UserDaoJdbc: findById({})", userId);
+        SqlParameterSource sqlParameterSource = new MapSqlParameterSource("USER_ID", userId);
         List<User> results = template.query(findByIdSql, sqlParameterSource, rowMapper);
         return Optional.ofNullable(DataAccessUtils.uniqueResult(results));
     }
@@ -64,6 +71,7 @@ public class UserDaoJdbc implements UserDao, InitializingBean {
 
     @Override
     public Integer update(User user) {
+        LOGGER.debug("UserDaoJdbc: update({})", user);
         SqlParameterSource sqlParameterSource =
                 new MapSqlParameterSource("USER_NAME", user.getUserName())
                         .addValue("USER_EMAIL", user.getUserEmail())
