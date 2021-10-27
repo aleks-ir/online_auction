@@ -190,29 +190,6 @@ public class AuctionControllerTest {
         assertEquals(testDate, d);
     }
 
-//    @Test
-//    public void shouldUpdateProduct() throws Exception {
-//        mockServer.expect(ExpectedCount.once(), requestTo(new URI(PRODUCTS_URL)))
-//                .andExpect(method(HttpMethod.PUT))
-//                .andRespond(withStatus(HttpStatus.OK)
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .body("1")
-//                );
-//        String testPrice = "20";
-//        String testSalesmenId = "2";
-//        mockMvc.perform(
-//                        MockMvcRequestBuilders.post("/product/update")
-//                                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-//                                .param("productId", "1")
-//                                .param("price", testPrice)
-//                                .param("customerId", testSalesmenId)
-//                ).andExpect(status().isFound())
-//                .andExpect(view().name("redirect:/auction"))
-//                .andExpect(redirectedUrl("/auction"));
-//
-//        mockServer.verify();
-//    }
-
 
     private ProductDto createProductDto(Integer productId, String productName, Float productPrice, String productDate, String nameOwner) {
         ProductDto productDto = new ProductDto();

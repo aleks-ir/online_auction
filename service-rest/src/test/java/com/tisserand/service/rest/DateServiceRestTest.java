@@ -1,11 +1,7 @@
 package com.tisserand.service.rest;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tisserand.model.dto.UserDto;
 import com.tisserand.service.DateService;
-import com.tisserand.service.dto.UserDtoService;
 import com.tisserand.service.rest.config.TestConfig;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,10 +16,6 @@ import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;

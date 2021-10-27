@@ -1,7 +1,6 @@
 package com.tisserand.service.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tisserand.model.Product;
 import com.tisserand.model.User;
 import com.tisserand.service.UserService;
 import com.tisserand.service.rest.config.TestConfig;

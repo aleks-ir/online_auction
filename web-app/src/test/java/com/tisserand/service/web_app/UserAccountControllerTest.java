@@ -1,14 +1,8 @@
 package com.tisserand.service.web_app;
 
-import com.tisserand.model.Product;
 import com.tisserand.model.User;
-import com.tisserand.model.dto.UserDto;
-import com.tisserand.service.ProductService;
 import com.tisserand.service.UserService;
-import com.tisserand.service.dto.ProductDtoService;
-import com.tisserand.service.web_app.controllers.AuctionController;
 import com.tisserand.service.web_app.controllers.UserAccountController;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
@@ -21,7 +15,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.Arrays;
 import java.util.Optional;
 
 import static org.hamcrest.Matchers.*;
