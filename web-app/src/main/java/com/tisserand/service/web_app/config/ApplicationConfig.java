@@ -30,13 +30,13 @@ public class ApplicationConfig {
     }
 
     @Bean
-    ProductDtoService departmentDtoService() {
+    ProductDtoService productDtoService() {
         String url = String.format("%s://%s:%d/products-dto", protocol, host, port);
         return new ProductDtoServiceRest(url, restTemplate());
     };
 
     @Bean
-    ProductService departmentService() {
+    ProductService productService() {
         String url = String.format("%s://%s:%d/products", protocol, host, port);
         return new ProductServiceRest(url, restTemplate());
     };
@@ -58,4 +58,6 @@ public class ApplicationConfig {
         String url = String.format("%s://%s:%d/date", protocol, host, port);
         return new DateServiceRest(url, restTemplate());
     };
+
+
 }

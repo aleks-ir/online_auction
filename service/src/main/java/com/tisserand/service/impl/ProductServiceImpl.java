@@ -37,13 +37,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Integer create(Product product) {
-        paymentService.withdraw(product);
         return productDao.create(product);
     }
 
     @Override
     public Integer delete(Integer productId) {
-        paymentService.refund(findById(productId).get());
         return productDao.delete(productId);
     }
 
@@ -53,7 +51,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAllIdByDate(String date) {
+    public List<Product> findAllByDate(String date) {
         return productDao.findAllByDate(date);
     }
 

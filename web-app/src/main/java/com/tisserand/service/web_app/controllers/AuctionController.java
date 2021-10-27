@@ -1,21 +1,17 @@
 package com.tisserand.service.web_app.controllers;
 
 import com.tisserand.model.Product;
-import com.tisserand.model.dto.ProductDto;
 import com.tisserand.service.DateService;
 import com.tisserand.service.dto.ProductDtoService;
 import com.tisserand.service.ProductService;
 import com.tisserand.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Min;
-import java.util.List;
 
 
 @Controller
@@ -33,7 +29,7 @@ public class AuctionController {
 
     @Autowired
     public AuctionController(ProductDtoService productDtoService,
-                                ProductService productService, UserService userService, DateService dateService) {
+                             ProductService productService, UserService userService, DateService dateService) {
         this.productDtoService = productDtoService;
         this.productService = productService;
         this.userService = userService;
@@ -67,7 +63,6 @@ public class AuctionController {
 
     @GetMapping(value = "/add_product")
     public final String gotoAddProductPage(Model model) {
-        model.addAttribute("isNew", true);
         model.addAttribute("product", new Product());
         return "add_product";
     }
@@ -106,6 +101,4 @@ public class AuctionController {
         productService.delete(id);
         return "redirect:/auction";
     }
-
-
 }
