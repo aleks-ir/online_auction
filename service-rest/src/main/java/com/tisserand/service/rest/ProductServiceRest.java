@@ -55,7 +55,7 @@ public class ProductServiceRest implements ProductService {
     }
 
     @Override
-    public List<Product> findAllIdByDate(String date) {
+    public List<Product> findAllByDate(String date) {
         ResponseEntity<Product> responseEntity =
                 restTemplate.getForEntity(url + "/" + date, Product.class);
         return (List<Product>) responseEntity.getBody();

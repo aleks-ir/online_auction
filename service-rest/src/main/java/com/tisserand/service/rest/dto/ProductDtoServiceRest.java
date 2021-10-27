@@ -30,9 +30,6 @@ public class ProductDtoServiceRest implements ProductDtoService {
 
     @Override
     public List<ProductDto> findAllProductWithNameOwnerByDate(String startDate, String endDate) {
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//        String stringStartDate = dateFormat.format(startDate);
-//        String stringEndDate = dateFormat.format(endDate);
         ResponseEntity<List<ProductDto>> responseEntity = restTemplate.exchange(url + "?startDate={startDate}&endDate={endDate}", GET, null, new ParameterizedTypeReference<>() {}, startDate, endDate);
         return responseEntity.getBody();
     }
