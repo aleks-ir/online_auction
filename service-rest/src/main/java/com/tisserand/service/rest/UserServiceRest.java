@@ -41,6 +41,7 @@ public class UserServiceRest implements UserService {
         return Optional.ofNullable(responseEntity.getBody());
     }
 
+
     @Override
     public Integer update(User user) {
         LOGGER.debug("UserServiceRest: update({})", user);
@@ -55,4 +56,6 @@ public class UserServiceRest implements UserService {
     public Integer count() {
         return null;
     }
+
+
 }

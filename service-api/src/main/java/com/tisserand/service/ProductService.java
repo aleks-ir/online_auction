@@ -16,7 +16,7 @@ public interface ProductService {
 
     Integer count();
 
-    List<Product> findAllIdByDate(String date);
+    List<Product> findAllByDate(String date);
 
     Integer updatePriceAndCustomer(Product product);
 }
