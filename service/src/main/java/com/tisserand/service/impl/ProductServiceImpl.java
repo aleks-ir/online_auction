@@ -44,19 +44,17 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Integer create(Product product) {
         LOGGER.debug("ProductServiceImpl: create({})", product);
-        paymentService.withdraw(product);
         return productDao.create(product);
     }
 
     @Override
     public Integer delete(Integer productId) {
         LOGGER.debug("ProductServiceImpl: delete({})", productId);
-        paymentService.refund(findById(productId).get());
         return productDao.delete(productId);
     }
 
     @Override
-    public List<Product> findAllIdByDate(String date) {
+    public List<Product> findAllByDate(String date) {
         LOGGER.debug("ProductServiceImpl: findAllIdByDate({})", date);
         return productDao.findAllByDate(date);
     }

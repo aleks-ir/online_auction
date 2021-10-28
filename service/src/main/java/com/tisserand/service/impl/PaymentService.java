@@ -42,33 +42,13 @@ public class PaymentService {
     }
 
     public void payment(String date) {
-        LOGGER.debug("PaymentService: payment({})", date);
         List<Product> products = productDao.findAllByDate(date);
         for (Product product : products) {
             if(checkProductOnAccountability(product)){
                 paymentDao.payment(product);
-            }else {
-                paymentDao.refund(product);
             }
             productDao.delete(product.getProductId());
         }
     }
-
-    public void withdraw(Product product) {
-        LOGGER.debug("PaymentService: withdraw({})", product);
-        Integer userId = product.getSalesmanId();
-        User user = userDao.findById(userId).get();
-        if(user.getUserMoney() > product.getProductPrice()){
-            paymentDao.withdraw(product);
-        }else throw new SecurityException("Not enough money in the account");
-    }
-
-    public void refund(Product product) {
-        LOGGER.debug("PaymentService: refund({})", product);
-        paymentDao.refund(product);
-    }
-
-
-
 
 }
